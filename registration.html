@@ -6,11 +6,11 @@
     <title>Document</title>
     <link rel="stylesheet" href="./style/registration.css">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-    <script src = "log_in.js"></script>
+    <script src = "registration.js"></script>
 </head>
 <body id="body">
     <div id="secondary_background">
-        <!-- <div id="image_box">
+        <div id="image_box">
             <img src="/resources/images/registration_image.jpg" alt="Image" id="registration_image">
         </div>
         <div id="registration_container">
@@ -19,14 +19,15 @@
 
             <form id="log_in_form">
                 <label for="name">Username</label>
-                <input type="text" id="username" required="">
+                <input type="text" class="input-field" placeholder="Username" required="">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" required="">
+                <input type="email" class="input-field" name="email" placeholder="Email" required="">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" required="">
-                <button type="submit">Submit</button>
+                <input type="password" class="input-field" name="password" placeholder="Password" required="">
+                <button type="submit" class="create_acc_btn" >Create Account</button>
+                <button type="submit" class="sign_in_btn" >Sign In</button>
               </form>
-        </div> -->
+        </div>
     </div>
 </body>
 </html>
