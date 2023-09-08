@@ -194,13 +194,13 @@ input:focus, input:hover {
 
 }
 
-.create_acc:active, .sign_in:active {
+.create_acc_btn:active, .sign_in_btn:active {
     transition: 0.35s;
     transform: scale(0.93);
 
 }
 
-.create_acc:hover, .sign_in:hover {
+.create_acc_btn:hover, .sign_in_btn:hover {
 
     transition: 0.35s;
     transform: translateY(-4px);
