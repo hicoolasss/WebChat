@@ -377,3 +377,26 @@ input:focus, input:hover {
         border-radius: 10px;
     }
 }
+
+@media (width < 413px) and (height < 916px) {
+
+    #create_acc_banner {
+        /* margin-top: 25px; */
+        font-size: 1.2em;
+        margin-top: 100px;
+    }
+
+    #create_acc_desc {
+        font-size: 0.9em;
+        margin-top: -25px;
+        /* margin-top: 5px; */
+    }
+    #log_in_form {
+        margin-top: 100px;
+    }
+    #secondary_background {
+        width: calc(100vw - 20px);
+        height: calc(100vh - 20px);
+        border-radius: 10px;
+    }
+}
