@@ -355,7 +355,7 @@ input:focus, input:hover {
     }
 }
 
-@media (max-width: 391px) and (max-height: 845px) {
+@media (width < 391px) and (height < 845px) {
 
     #create_acc_banner {
         /* margin-top: 25px; */
