@@ -1,0 +1,449 @@
+:root {
+    --main_bc: #0A0A0A;
+    --sec_bc: #151616;
+}
+
+html {
+    width: 100vw;
+    height: 100vh;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    /* font-size: 100%; */
+    width: 100vw;
+    height: 100vh;
+    color: white;
+
+    background-color: var(--main_bc);
+}
+
+#secondary_background {
+    display: flex;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    position: relative;
+    margin: 100;
+    width: calc(100vw - 200px);
+    height: calc(100vh - 200px);
+    /* height: calc(100% - 200px); */
+    border-radius: 120px;
+    background-color: var(--sec_bc);
+}
+
+#image_box {
+    width: 50%;
+    height: 100%;
+    border-radius: 120px 0px 0px 120px;
+}
+
+#registration_image {
+    width: 100%;
+    height: 100%;
+    border-radius: 120px 0px 0px 120px;
+}
+
+
+#registration_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: red; */
+    width: 50%;
+    height: 100%;
+    border-radius: 0px 120px 120px 0px;
+}
+
+#create_acc_banner {
+    /* Create an account font-family 'Poppins'; */
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 3em;
+    line-height: 96px;
+    /* identical to box height text-align center; */
+
+    color: #DFEAFF;
+
+    margin: 0;
+    margin-top: 70px;
+    /* outline: 2px red dotted; */
+}
+
+#create_acc_desc {
+    /* Sign up and start chatting ! font-family 'Poppins'; */
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.5em;
+    line-height: 48px;
+    /* identical to box height text-align center; */
+
+    color: #8996a7;
+
+    margin: 0;
+    margin-top: 25px;
+
+    /* outline: 2px red dotted; */
+
+}
+
+#log_in_form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 70px;
+    width: 574px;
+    height: 395px;
+}
+
+label {
+    margin-bottom: -10px;
+    padding: 0;
+    /* Username  */
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.25em;
+    line-height: 48px;
+    /* identical to box height text-align center; */
+
+    color: #DFEAFF;
+
+
+}
+
+input {
+    align-self: center;
+    width: 100%;
+    height: 3.25em;
+
+    padding: 0;
+
+    background-color: #202329;
+    border-radius: 1em;
+    color: #DFEAFF;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 0.9em;
+
+
+    outline: none;
+    border: 2px solid transparent;
+    transition: .3s ease;
+
+    text-indent: 20px;
+}
+
+input::placeholder {
+    color: #6b798c;
+}
+
+input:focus, input:hover {
+    outline: none;
+    /* border-color: rgba(234, 76, 137, 0.4); */
+    border-color: rgba(239, 245, 255, 0.4);
+    background-color: #22242a;
+    box-shadow: 0 0 0 2.5px rgb(239 245 255 / 10%);
+}
+
+.create_acc_btn {
+    padding: 0;
+
+    align-self: center;
+    width: 100%;
+    height: 3.25em;
+    margin-top: 17px;
+
+    background-color: #DFEAFF;
+    border-radius: 1em;
+    color: #0A0A0A;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 0.9em;
+
+
+    outline: none;
+    border: 2px solid transparent;
+    transition: .3s ease;
+}
+
+.sign_in_btn {
+    padding: 0;
+
+    align-self: center;
+    width: 100%;
+    height: 3.25em;
+    margin-top: 17px;
+
+    background-color: #0A0A0A;
+    /* rgba(32, 35, 41, 0.5); */
+    border-radius: 1em;
+    color: #DFEAFF;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 0.9em;
+
+
+    outline: none;
+    border: 2px solid transparent;
+    transition: .3s ease;
+
+}
+
+.create_acc_btn:active, .sign_in_btn:active {
+    transition: 0.35s;
+    transform: scale(0.93);
+
+}
+
+.create_acc_btn:hover, .sign_in_btn:hover {
+
+    transition: 0.35s;
+    transform: translateY(-4px);
+
+}
+
+@media (width < 1475px) {
+
+    #create_acc_banner {
+        /* margin-top: 25px; */
+        font-size: 1.5em;
+    }
+
+    #create_acc_desc {
+        font-size: 1em;
+        /* margin-top: 5px; */
+    }
+
+    #log_in_form {
+        /* margin-top: 25px; */
+        width: 274px;
+    }
+}
+
+
+@media (width < 1315px) {
+
+    #create_acc_banner {
+        /* margin-top: 25px; */
+        font-size: 2.5em;
+    }
+
+    #create_acc_desc {
+        font-size: 2em;
+        /* margin-top: 5px; */
+    }
+
+    #log_in_form {
+        /* margin-top: 25px; */
+        width: 574px;
+    }
+
+    #image_box {
+        width: 0%;
+        height: 0%;
+    }
+
+    #secondary_background {
+        align-items: center;
+        justify-content: center;
+    }
+
+    #registration_container {
+        align-self: center;
+    }
+}
+
+@media (width < 1075px) {
+    #create_acc_banner {
+        /* margin-top: 25px; */
+        font-size: 2em;
+    }
+
+    #create_acc_desc {
+        font-size: 1.5em;
+        /* margin-top: 5px; */
+    }
+}
+
+@media (width < 930px) {
+    #create_acc_banner {
+        /* margin-top: 25px; */
+        font-size: 1.5em;
+    }
+
+    #create_acc_desc {
+        font-size: 1em;
+        /* margin-top: 5px; */
+    }
+
+    #log_in_form {
+        /* margin-top: 25px; */
+        width: 274px;
+    }
+}
+
+@media (width < 670px) {
+    #create_acc_banner {
+        /* margin-top: 25px; */
+        font-size: 1em;
+    }
+
+    #create_acc_desc {
+        font-size: 0.7em;
+        /* margin-top: 5px; */
+    }
+
+    label {
+        font-size: 1em;
+    }
+}
+
+
+@media (height < 1005px) {
+    #image_box {
+        width: 0%;
+        height: 0%;
+    }
+
+    #secondary_background {
+        align-items: center;
+        justify-content: center;
+    }
+
+    #registration_container {
+        align-self: center;
+    }
+}
+
+@media (height < 950px) {
+    #create_acc_banner {
+        margin-top: 25px;
+        font-size: 2.5em;
+    }
+
+    #create_acc_desc {
+        font-size: 2em;
+        margin-top: 5px;
+    }
+}
+
+@media (height < 880px) {
+    #create_acc_banner {
+        font-size: 2em;
+    }
+
+    #create_acc_desc {
+        font-size: 1.5em;
+    }
+
+    #log_in_form {
+        margin-top: 25px;
+    }
+}
+
+@media (width < 391px) and (height < 845px) {
+
+    #create_acc_banner {
+        /* margin-top: 25px; */
+        font-size: 1.2em;
+        margin-top: 100px;
+    }
+
+    #create_acc_desc {
+        font-size: 0.8em;
+        margin-top: -25px;
+        /* margin-top: 5px; */
+    }
+    #log_in_form {
+        margin-top: 100px;
+    }
+    #secondary_background {
+        width: calc(100vw - 20px);
+        height: calc(100vh - 20px);
+        border-radius: 10px;
+    }
+}
+
+@media (width < 413px) and (height < 916px) {
+
+    #create_acc_banner {
+        /* margin-top: 25px; */
+        font-size: 1.2em;
+        margin-top: 100px;
+    }
+
+    #create_acc_desc {
+        font-size: 0.9em;
+        margin-top: -25px;
+        /* margin-top: 5px; */
+    }
+    #log_in_form {
+        margin-top: 100px;
+    }
+    #secondary_background {
+        width: calc(100vw - 20px);
+        height: calc(100vh - 20px);
+        border-radius: 10px;
+    }
+}
+
+@media (width < 429px) and (height < 927px) {
+
+    #create_acc_banner {
+        /* margin-top: 25px; */
+        font-size: 1.1em;
+        margin-top: 100px;
+    }
+
+    #create_acc_desc {
+        font-size: 0.9em;
+        margin-top: -25px;
+        /* margin-top: 5px; */
+    }
+    #log_in_form {
+        margin-top: 100px;
+    }
+    #secondary_background {
+        width: calc(100vw - 20px);
+        height: calc(100vh - 20px);
+        border-radius: 10px;
+    }
+}
+
+@media (width < 391px) and (height < 845px) {
+
+    #create_acc_banner {
+        /* margin-top: 25px; */
+        font-size: 1.1em;
+        margin-top: 100px;
+    }
+
+    #create_acc_desc {
+        font-size: 0.8em;
+        margin-top: -25px;
+        /* margin-top: 5px; */
+    }
+    #log_in_form {
+        margin-top: 100px;
+    }
+    #secondary_background {
+        width: calc(100vw - 20px);
+        height: calc(100vh - 20px);
+        border-radius: 10px;
+    }
+}
