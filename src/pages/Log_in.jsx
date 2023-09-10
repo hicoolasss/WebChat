@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import '../registration.css'
 
@@ -24,7 +25,7 @@ const LogIn = () => {
             {isLoading ? (
                 <div><UseAnimations animation={loading3} size={150} strokeColor="#DFEAFF" /></div>
             ) : (
-                <div id="secondary_background">
+                <div className="log_in_back" id="secondary_background">
                     <div id="image_box">
                         <img
                             src={registrationImage}
@@ -33,8 +34,8 @@ const LogIn = () => {
                         />
                     </div>
                     <div id="registration_container">
-                        <p id="create_acc_banner">Create an account</p>
-                        <p id="create_acc_desc">Sign up and start chatting!</p>
+                        <p id="banner">Hello again!</p>
+                        <p id="desc">Welcome back you`ve been missed!</p>
                         <form id="log_in_form">
                             <label htmlFor="name">Username or email</label>
                             <input
@@ -61,6 +62,12 @@ const LogIn = () => {
                             }}>
                                 Log In
                             </button>
+                            <div className="dont_have_acc_box">
+                                <p>Don`t have account?&nbsp; </p>
+                                <Link className="log_in_link" to="/registration">
+                                    Sign up
+                                </Link>
+                            </div>
                         </form>
                     </div>
                 </div>

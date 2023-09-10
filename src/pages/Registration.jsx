@@ -37,8 +37,8 @@ const Registration = () => {
             />
           </div>
           <div id="registration_container">
-            <p id="create_acc_banner">Create an account</p>
-            <p id="create_acc_desc">Sign up and start chatting!</p>
+            <p id="banner">Create an account</p>
+            <p id="desc">Sign up and start chatting!</p>
             <form id="log_in_form">
               <label htmlFor="name">Username</label>
               <input
@@ -74,9 +74,10 @@ const Registration = () => {
               </button>
               <Link className="Link" to="/login">
                 <button type="submit" className="sign_in_btn">
-                Sign In
+                  Sign In
                 </button>
-                </Link>
+              </Link>
+
             </form>
           </div>
         </div>

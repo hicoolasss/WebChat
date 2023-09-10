@@ -1,7 +1,7 @@
 :root {
     --main_bc: #0A0A0A;
     --sec_bc: #151616;
-    --main-text-color:  #DFEAFF;
+    --main-text-color: #DFEAFF;
     --placeholder-text-color: #6b798c;
     --desc-text-color: #8996a7;
 }
@@ -64,7 +64,7 @@ body {
     border-radius: 0px 120px 120px 0px;
 }
 
-#create_acc_banner {
+#banner {
     /* Create an account font-family 'Poppins'; */
     font-family: 'Poppins';
     font-style: normal;
@@ -80,7 +80,7 @@ body {
     /* outline: 2px red dotted; */
 }
 
-#create_acc_desc {
+#desc {
     /* Sign up and start chatting ! font-family 'Poppins'; */
     font-family: 'Poppins';
     font-style: normal;
@@ -236,6 +236,8 @@ input:focus, input:hover {
     font-weight: 500;
     font-size: 0.9em;
 
+    cursor: pointer;
+
 
     outline: none;
     border: 2px solid transparent;
@@ -255,6 +257,55 @@ input:focus, input:hover {
 
 }
 
+.dont_have_acc_box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+p {
+    margin-top: 20px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 0.9em;
+}
+
+
+.log_in_link {
+    margin-top: 5px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 0.9em;
+    
+    /* text-align: center;
+    align-self: center; */
+    
+    text-decoration: none;
+    
+    color: #3239D0;
+}
+
+.log_in_link:hover{
+    transition: 0.35s;
+    transform: translateY(-4px);
+}
+
+
+
+
+
+.log_in_back #desc {
+    margin-top: 0px;
+}
+
+.log_in_back #log_in_form {
+    margin-top: 35px;
+}
+
 .Link {
     color: var(--main-text-color);
     text-decoration: none;
@@ -263,7 +314,7 @@ input:focus, input:hover {
 
 @media (width < 1475px) {
 
-    #create_acc_banner {
+    #banner {
         /* margin-top: 25px; */
         font-size: 1.5em;
     }
@@ -282,7 +333,7 @@ input:focus, input:hover {
 
 @media (width < 1315px) {
 
-    #create_acc_banner {
+    #banner {
         /* margin-top: 25px; */
         font-size: 2.5em;
     }
@@ -313,7 +364,7 @@ input:focus, input:hover {
 }
 
 @media (width < 1075px) {
-    #create_acc_banner {
+    #banner {
         /* margin-top: 25px; */
         font-size: 2em;
     }
@@ -325,12 +376,12 @@ input:focus, input:hover {
 }
 
 @media (width < 930px) {
-    #create_acc_banner {
+    #banner {
         /* margin-top: 25px; */
         font-size: 1.5em;
     }
 
-    #create_acc_desc {
+    #desc {
         font-size: 1em;
         /* margin-top: 5px; */
     }
@@ -342,7 +393,7 @@ input:focus, input:hover {
 }
 
 @media (width < 670px) {
-    #create_acc_banner {
+    #banner {
         /* margin-top: 25px; */
         font-size: 1em;
     }
@@ -375,7 +426,7 @@ input:focus, input:hover {
 }
 
 @media (height < 950px) {
-    #create_acc_banner {
+    #banner {
         margin-top: 25px;
         font-size: 2.5em;
     }
@@ -387,7 +438,7 @@ input:focus, input:hover {
 }
 
 @media (height < 880px) {
-    #create_acc_banner {
+    #banner {
         font-size: 2em;
     }
 
@@ -402,7 +453,7 @@ input:focus, input:hover {
 
 @media (width < 391px) and (height < 845px) {
 
-    #create_acc_banner {
+    #banner {
         /* margin-top: 25px; */
         font-size: 1.2em;
         margin-top: 100px;
@@ -413,9 +464,11 @@ input:focus, input:hover {
         margin-top: -25px;
         /* margin-top: 5px; */
     }
+
     #log_in_form {
         margin-top: 100px;
     }
+
     #secondary_background {
         width: calc(100vw - 20px);
         height: calc(100vh - 20px);
@@ -425,7 +478,7 @@ input:focus, input:hover {
 
 @media (width < 413px) and (height < 916px) {
 
-    #create_acc_banner {
+    #banner {
         /* margin-top: 25px; */
         font-size: 1.2em;
         margin-top: 100px;
@@ -436,9 +489,11 @@ input:focus, input:hover {
         margin-top: -25px;
         /* margin-top: 5px; */
     }
+
     #log_in_form {
         margin-top: 100px;
     }
+
     #secondary_background {
         width: calc(100vw - 20px);
         height: calc(100vh - 20px);
@@ -448,7 +503,7 @@ input:focus, input:hover {
 
 @media (width < 429px) and (height < 927px) {
 
-    #create_acc_banner {
+    #banner {
         /* margin-top: 25px; */
         font-size: 1.1em;
         margin-top: 100px;
@@ -459,9 +514,11 @@ input:focus, input:hover {
         margin-top: -25px;
         /* margin-top: 5px; */
     }
+
     #log_in_form {
         margin-top: 100px;
     }
+
     #secondary_background {
         width: calc(100vw - 20px);
         height: calc(100vh - 20px);
@@ -471,7 +528,7 @@ input:focus, input:hover {
 
 @media (width < 391px) and (height < 845px) {
 
-    #create_acc_banner {
+    #banner {
         /* margin-top: 25px; */
         font-size: 1.1em;
         margin-top: 100px;
@@ -482,9 +539,11 @@ input:focus, input:hover {
         margin-top: -25px;
         /* margin-top: 5px; */
     }
+
     #log_in_form {
         margin-top: 100px;
     }
+
     #secondary_background {
         width: calc(100vw - 20px);
         height: calc(100vh - 20px);
