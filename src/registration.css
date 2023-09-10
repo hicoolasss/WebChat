@@ -455,7 +455,7 @@ p {
 
     #banner {
         /* margin-top: 25px; */
-        font-size: 1.2em;
+        font-size: 1.1em;
         margin-top: 100px;
     }
 
@@ -464,18 +464,15 @@ p {
         margin-top: -25px;
         /* margin-top: 5px; */
     }
-
     #log_in_form {
         margin-top: 100px;
     }
-
     #secondary_background {
         width: calc(100vw - 20px);
         height: calc(100vh - 20px);
         border-radius: 10px;
     }
 }
-
 @media (width < 413px) and (height < 916px) {
 
     #banner {
