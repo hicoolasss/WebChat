@@ -228,6 +228,12 @@ input:focus, input:hover {
 
 }
 
+.Link {
+    color: #DFEAFF;
+    text-decoration: none;
+    width: 100%;
+}
+
 @media (width < 1475px) {
 
     #create_acc_banner {
