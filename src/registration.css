@@ -1,6 +1,9 @@
 :root {
     --main_bc: #0A0A0A;
     --sec_bc: #151616;
+    --main-text-color:  #DFEAFF;
+    --placeholder-text-color: #6b798c;
+    --desc-text-color: #8996a7;
 }
 
 html {
@@ -70,7 +73,7 @@ body {
     line-height: 96px;
     /* identical to box height text-align center; */
 
-    color: #DFEAFF;
+    color: var(--main-text-color);
 
     margin: 0;
     margin-top: 70px;
@@ -86,7 +89,7 @@ body {
     line-height: 48px;
     /* identical to box height text-align center; */
 
-    color: #8996a7;
+    color: var(--desc-text-color);
 
     margin: 0;
     margin-top: 25px;
@@ -111,11 +114,11 @@ label {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 500;
-    font-size: 1.25em;
+    font-size: 1em;
     line-height: 48px;
     /* identical to box height text-align center; */
 
-    color: #DFEAFF;
+    color: var(--main-text-color);
 
 
 }
@@ -123,13 +126,14 @@ label {
 input {
     align-self: center;
     width: 100%;
+    max-width: 570px;
     height: 3.25em;
 
     padding: 0;
 
     background-color: #202329;
     border-radius: 1em;
-    color: #DFEAFF;
+    color: var(--main-text-color);
 
     font-family: 'Poppins';
     font-style: normal;
@@ -145,7 +149,7 @@ input {
 }
 
 input::placeholder {
-    color: #6b798c;
+    color: var(--placeholder-text-color);
 }
 
 input:focus, input:hover {
@@ -175,7 +179,7 @@ input:focus, input:hover {
     height: 3.25em;
     margin-top: 17px;
 
-    background-color: #DFEAFF;
+    background-color: var(--main-text-color);
     border-radius: 1em;
     color: #0A0A0A;
 
@@ -201,7 +205,7 @@ input:focus, input:hover {
     background-color: #0A0A0A;
     /* rgba(32, 35, 41, 0.5); */
     border-radius: 1em;
-    color: #DFEAFF;
+    color: var(--main-text-color);
 
     font-family: 'Poppins';
     font-style: normal;
@@ -215,13 +219,36 @@ input:focus, input:hover {
 
 }
 
-.create_acc_btn:active, .sign_in_btn:active {
+.Log_in_btn_in_log_in_page {
+    padding: 0;
+
+    align-self: center;
+    width: 100%;
+    height: 3.25em;
+    margin-top: 17px;
+
+    background-color: var(--main-text-color);
+    border-radius: 1em;
+    color: #0A0A0A;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 0.9em;
+
+
+    outline: none;
+    border: 2px solid transparent;
+    transition: .3s ease;
+}
+
+.create_acc_btn:active, .sign_in_btn:active, .Log_in_btn_in_log_in_page:active {
     transition: 0.35s;
     transform: scale(0.93);
 
 }
 
-.create_acc_btn:hover, .sign_in_btn:hover {
+.create_acc_btn:hover, .sign_in_btn:hover, .Log_in_btn_in_log_in_page:hover {
 
     transition: 0.35s;
     transform: translateY(-4px);
@@ -229,7 +256,7 @@ input:focus, input:hover {
 }
 
 .Link {
-    color: #DFEAFF;
+    color: var(--main-text-color);
     text-decoration: none;
     width: 100%;
 }
