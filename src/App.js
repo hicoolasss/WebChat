@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
+
+
 import './registration.css'
 
 import UseAnimations from "react-useanimations";
 import loading3 from "react-useanimations/lib/loading3";
+import visibility from "react-useanimations/lib/visibility";
 
 
 import registrationImage from "./resources/images/registration_image.jpg"
@@ -11,6 +14,8 @@ import registrationImage from "./resources/images/registration_image.jpg"
 function App() {
 
   const [isLoading, setIsLoading] = useState(true);
+
+  const [isRevealPwd, setIsRevealPwd] = useState(false);
 
   useEffect(() => {
     // Ваш код загрузки данных или ресурсов
@@ -52,13 +57,16 @@ function App() {
                 required=""
               />
               <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                className="input-field"
-                name="password"
-                placeholder="Password"
-                required=""
-              />
+              <div className="password_box">
+                <input
+                  type={isRevealPwd ? "text" : "password"}
+                  className="input-field"
+                  name="password"
+                  placeholder="Password"
+                  required=""
+                />
+                <div className="visibility"><UseAnimations animation={visibility} reverse={true} size={28} strokeColor="#DFEAFF" speed={3} onClick={() => setIsRevealPwd(prevState => !prevState)} /></div>
+              </div>
               <button type="submit" className="create_acc_btn">
                 Create Account
               </button>
