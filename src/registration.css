@@ -451,7 +451,7 @@ p {
     }
 }
 
-@media (min-width: 390px) and (min-height: 844px){
+@media (width < 391px) and (height < 845px) {
 
     #banner {
         /* margin-top: 25px; */
@@ -476,7 +476,7 @@ p {
     }
 }
 
-@media (min-width: 413px) and (min-height: 916px) {
+@media (width < 413px) and (height < 916px) {
 
     #banner {
         /* margin-top: 25px; */
@@ -501,7 +501,7 @@ p {
     }
 }
 
-@media (min-width: 428px) and (min-height: 926px) {
+@media (width < 429px) and (height < 927px) {
 
     #banner {
         /* margin-top: 25px; */
@@ -526,7 +526,7 @@ p {
     }
 }
 
-@media (width <= 390px) and (height <= 844px) {
+@media (width < 391px) and (height < 845px) {
 
     #banner {
         /* margin-top: 25px; */
