@@ -319,7 +319,7 @@ p {
         font-size: 1.5em;
     }
 
-    #create_acc_desc {
+    #desc {
         font-size: 1em;
         /* margin-top: 5px; */
     }
@@ -338,7 +338,7 @@ p {
         font-size: 2.5em;
     }
 
-    #create_acc_desc {
+    #desc {
         font-size: 2em;
         /* margin-top: 5px; */
     }
@@ -369,7 +369,7 @@ p {
         font-size: 2em;
     }
 
-    #create_acc_desc {
+    #desc {
         font-size: 1.5em;
         /* margin-top: 5px; */
     }
@@ -398,7 +398,7 @@ p {
         font-size: 1em;
     }
 
-    #create_acc_desc {
+    #desc {
         font-size: 0.7em;
         /* margin-top: 5px; */
     }
@@ -431,7 +431,7 @@ p {
         font-size: 2.5em;
     }
 
-    #create_acc_desc {
+    #desc {
         font-size: 2em;
         margin-top: 5px;
     }
@@ -442,7 +442,7 @@ p {
         font-size: 2em;
     }
 
-    #create_acc_desc {
+    #desc {
         font-size: 1.5em;
     }
 
@@ -459,7 +459,7 @@ p {
         margin-top: 100px;
     }
 
-    #create_acc_desc {
+    #desc {
         font-size: 0.8em;
         margin-top: -25px;
         /* margin-top: 5px; */
@@ -484,7 +484,7 @@ p {
         margin-top: 100px;
     }
 
-    #create_acc_desc {
+    #desc {
         font-size: 0.9em;
         margin-top: -25px;
         /* margin-top: 5px; */
@@ -509,7 +509,7 @@ p {
         margin-top: 100px;
     }
 
-    #create_acc_desc {
+    #desc {
         font-size: 0.9em;
         margin-top: -25px;
         /* margin-top: 5px; */
@@ -534,7 +534,7 @@ p {
         margin-top: 100px;
     }
 
-    #create_acc_desc {
+    #desc {
         font-size: 0.8em;
         margin-top: -25px;
         /* margin-top: 5px; */
