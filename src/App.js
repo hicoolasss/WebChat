@@ -6,7 +6,7 @@ import LogIn from './pages/Log_in'
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter >
       <Routes>
         <Route path="/" element={<Registration />} index />
         <Route path="login" element={<LogIn />} />
