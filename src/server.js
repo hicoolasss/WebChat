@@ -17,31 +17,31 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://first_user:1111@cluster0.jtz9col.mongodb.net/?retryWrites=true&w=majority";
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
+    serverApi: {
+        version: ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true,
+    }
 });
 async function run() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
+    try {
+        // Connect the client to the server	(optional starting in v4.7)
+        await client.connect();
+        // Send a ping to confirm a successful connection
+        await client.db("admin").command({ ping: 1 });
+        console.log("Pinged your deployment. You successfully connected to MongoDB!");
+    } finally {
+        // Ensures that the client will close when you finish/error
+        await client.close();
+    }
 }
 run().catch(console.dir);
 
 
 // Подключение к MongoDB
 mongoose.connect(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
 });
 
 
@@ -54,23 +54,35 @@ app.get("/", (req, res) => {
 // Маршруты для вашего сервера
 app.post("/submit", async (req, res) => {
     const formData = req.body;
-  
+
     try {
-      // Создание нового пользователя в базе данных
-      const user = new User(formData);
-      await user.save();
-  
-      console.log("User created:", user);
-  
-      // Отправка успешного ответа
-      res.json({ message: "User created successfully" });
+        // Создание нового пользователя в базе данных
+        const user = new User(formData);
+        await user.save();
+
+        // Удаление всех пользователей в коллекции
+        /* 
+        
+        
+        const collectionName = 'users'; // Здесь имя коллекции как строка
+        const collection = mongoose.connection.collection(collectionName);
+        await collection.deleteMany({});
+         
+         */
+
+        console.log("User created:", user);
+
+
+        // Отправка успешного ответа
+        res.json({ message: "User created successfully" });
     } catch (error) {
-      console.error("Error creating user:", error);
-  
-      // Отправка ошибки в случае неудачи
-      res.status(500).json({ error: "Failed to create user" });
+        console.error("Error creating user:", error);
+
+        // Отправка ошибки в случае неудачи
+        res.status(500).json({ error: "Failed to create user" });
     }
-  });
+});
+
 
 
 // Добавьте здесь другие маршруты, если необходимо

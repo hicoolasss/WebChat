@@ -170,14 +170,28 @@ input:focus, input:hover {
 }
 
 
-.error {
-    position: fixed;
+.username_error, .password_error, .email_error {
+    position: absolute;
     padding: 15px;
     top: 10px;
     background-color: #b00020;
     color: #fff;
     border-radius: 20px;
 
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 1em;
+}
+
+.success_notification {
+    position: absolute;
+    padding: 15px;
+    top: 10px;
+    background-color: #368a2f;
+    color: #fff;
+    border-radius: 20px;
 
     font-family: 'Poppins';
     font-style: normal;
