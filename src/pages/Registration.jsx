@@ -9,7 +9,7 @@ import visibility from "react-useanimations/lib/visibility";
 
 import registrationImage from "../resources/images/registration_image.jpg"
 
-import sendInfo from "../registration";
+import sendInfo from "../utils/registration";
 
 
 const Registration = () => {
@@ -49,6 +49,7 @@ const Registration = () => {
                 name="username"
                 placeholder="Username"
                 required=""
+                id="username"
               />
               <label htmlFor="email">Email</label>
               <input
@@ -57,6 +58,7 @@ const Registration = () => {
                 name="email"
                 placeholder="Email"
                 required=""
+                id="email"
               />
               <label htmlFor="password">Password</label>
               <div className="password_box">
@@ -66,6 +68,7 @@ const Registration = () => {
                   name="password"
                   placeholder="Password"
                   required=""
+                  id="password"
                 />
                 <div className="visibility"><UseAnimations animation={visibility} reverse={true} size={28} strokeColor="#DFEAFF" speed={3} onClick={() => setIsRevealPwd(prevState => !prevState)} /></div>
               </div>
