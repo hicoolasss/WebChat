@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import '../registration.css'
+import '../style/registration.css'
 
 import UseAnimations from "react-useanimations";
 import loading3 from "react-useanimations/lib/loading3";

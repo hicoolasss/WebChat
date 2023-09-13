@@ -160,6 +160,15 @@ input:focus, input:hover {
     box-shadow: 0 0 0 2.5px rgb(239 245 255 / 10%);
 }
 
+.create_acc_btn:focus, .create_acc_btn:hover {
+    outline: none;
+    /* border-color: rgba(234, 76, 137, 0.4); */
+    border-color: transparent;
+    background-color: var(--main-text-color);
+    box-shadow: none;
+}
+
+
 .password_box {
     display: flex;
     flex-direction: row;
@@ -280,6 +289,8 @@ p {
     font-style: normal;
     font-weight: 500;
     font-size: 0.9em;
+
+    transition: .3s ease;
     
     /* text-align: center;
     align-self: center; */
@@ -293,8 +304,6 @@ p {
     transition: 0.35s;
     transform: translateY(-4px);
 }
-
-
 
 
 

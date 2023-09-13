@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import '../registration.css'
+import '../style/registration.css'
 
 import UseAnimations from "react-useanimations";
 import loading3 from "react-useanimations/lib/loading3";
 import visibility from "react-useanimations/lib/visibility";
 
 import registrationImage from "../resources/images/registration_image.jpg"
+
+import sendInfo from "../registration";
 
 
 const Registration = () => {
@@ -39,11 +41,12 @@ const Registration = () => {
           <div id="registration_container">
             <p id="banner">Create an account</p>
             <p id="desc">Sign up and start chatting!</p>
-            <form id="log_in_form">
+            <form id="form" action="/submit" method="POST">
               <label htmlFor="name">Username</label>
               <input
                 type="text"
                 className="input-field"
+                name="username"
                 placeholder="Username"
                 required=""
               />
@@ -66,12 +69,8 @@ const Registration = () => {
                 />
                 <div className="visibility"><UseAnimations animation={visibility} reverse={true} size={28} strokeColor="#DFEAFF" speed={3} onClick={() => setIsRevealPwd(prevState => !prevState)} /></div>
               </div>
-              <button type="submit" className="create_acc_btn" onClick={(e) => {
-                e.preventDefault(); // Предотвращаем отправку формы
-                // Ваши дополнительные действия, связанные с кнопкой "Sign In"
-              }}>
-                Create Account
-              </button>
+              <input value={"Create Account"} type="submit" className="create_acc_btn" onClick={sendInfo} >
+              </input>
               <Link className="Link" to="/login">
                 <button type="submit" className="sign_in_btn">
                   Sign In
@@ -85,5 +84,7 @@ const Registration = () => {
     </div>
   );
 };
+
+// formMethod="post" onClick={sendInfo}
 
 export default Registration;
