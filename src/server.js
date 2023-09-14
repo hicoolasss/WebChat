@@ -86,20 +86,24 @@ app.post("/check", async (req, res) => {
     try {
         // Проверка существования пользователя по имени пользователя или email
         const user = await User.findOne({ username: username });
-
-        if (user) {
-            var isPasswordMatch;
-            // Сравнение введенного пароля с хэшированным паролем из базы данных
-            if (user.password === password) {
+        const user_w_email = await User.findOne({ email: username });
+        
+        if (user || user_w_email) {
+            var isPasswordMatch = false;
+            
+            if (user && user.password === password) {
+                isPasswordMatch = true;
+            } 
+            else if (user_w_email && user_w_email.password === password) {
                 isPasswordMatch = true;
             }
 
             if (isPasswordMatch) {
                 // Пароль совпадает, пользователь успешно аутентифицирован
-                res.json({ message: "Authentication successful", user });
-            } else {
+                res.json({ message: "Authentication successful", user: user || user_w_email });
+            } else if (!isPasswordMatch) {
                 // Пароль не совпадает, отправьте сообщение об ошибке
-                res.status(401).json({ message: "Authentication failed" });
+                res.status(401).json({ message: "Incorrect password" });
             }
         } else {
             // Пользователь с таким именем пользователя или email не существует
@@ -111,6 +115,7 @@ app.post("/check", async (req, res) => {
         res.status(500).json({ error: "Authentication failed" });
     }
 });
+
 
 
 

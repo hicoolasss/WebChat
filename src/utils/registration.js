@@ -133,6 +133,4 @@ function sendInfo(event) {
     return true;
 }
 
-
-
 export default sendInfo;

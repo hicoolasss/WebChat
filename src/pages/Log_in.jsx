@@ -9,7 +9,6 @@ import visibility from "react-useanimations/lib/visibility";
 
 import registrationImage from "../resources/images/registration_image.jpg"
 
-import checkLoginData from "../utils/checkLoginData"
 
 const LogIn = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -65,6 +64,19 @@ const LogIn = () => {
                     success_notification.classList.add('magictime', 'tinUpIn');
 
                     success_notification.appendChild(success_message);
+
+                    setTimeout(() => {
+                        const success_notification = document.getElementsByClassName("success_notification")[0];
+            
+                        // Удаление класса анимации и добавление класса для второй анимации
+                        success_notification.classList.remove("tinUpIn");
+                        success_notification.classList.add("tinUpOut");
+            
+                        // Через некоторое время удалите элемент
+                        setTimeout(() => {
+                            document.body.removeChild(success_notification);
+                        }, 10000);
+                    }, 5000);
                 } else {
                     console.log('Пользователь не найден');
                     // Пользователь не найден, выполняйте нужные действия
@@ -78,18 +90,6 @@ const LogIn = () => {
             // Обработка ошибки
         }
 
-        setTimeout(() => {
-            const success_notification = document.getElementsByClassName("success_notification")[0];
-    
-            // Удаление класса анимации и добавление класса для второй анимации
-            success_notification.classList.remove("tinUpIn");
-            success_notification.classList.add("tinUpOut");
-    
-            // Через некоторое время удалите элемент
-            setTimeout(() => {
-              document.body.removeChild(success_notification);
-            }, 10000);
-          }, 3000);
     }
     return (
         <div>
