@@ -17,6 +17,8 @@ function sendInfo(event) {
 
     const body = document.querySelector("body");
 
+    var hasNumber = /\d/;
+
     function showError(errorMessage, errorClassName) {
         const array = ["username_error", "email_error", "password_error"];
 
@@ -42,59 +44,47 @@ function sendInfo(event) {
         error_notification.appendChild(error_message);
     }
 
-    var hasNumber = /\d/;
 
     if (username === "") {
         showError("Please enter your username!", "username_error");
-        return;
+        return false;
     }
-    
     else if (username.length < 3) {
         showError("Username must be at least 3 characters long!", "username_error");
-        return;
+        return false;
     }
-
     else if (username.length > 20) {
         showError("Username must be no more than 20 characters long!", "username_error");
-        return;
+        return false;
     }
-
     else if (hasNumber.test(username)) {
         showError("Username shouldn`t contain numbers!", "username_error");
-        return;
+        return false;
     }
-
-
-
-    
-    
     else if (email === "") {
         showError("Please enter your email!", "email_error");
-        return;
+        return false;
     }
     else if (email.length < 5) {
         showError("Email must be at least 5 characters long!", "email_error");
-        return;
+        return false;
     }
     else if (email.length > 30) {
         showError("Email must be no more than 50 characters long!", "email_error");
-        return;
+        return false;
     }
-
-
     else if (password === "") {
         showError("Please enter your password!", "password_error");
-        return;
+        return false;
     }
     else if (password.length < 3) {
         showError("Password must be at least 3 characters long!", "password_error");
-        return;
+        return false;
     }
     else if (password.length > 20) {
         showError("Password must be no more than 20 characters long!", "password_error");
-        return;
+        return false;
     }
-
     else {
         const array = ["username_error", "email_error", "password_error"];
 
@@ -120,8 +110,6 @@ function sendInfo(event) {
         success_notification.appendChild(success_message);
     }
 
-
-
     // Проверяем, что значения получены корректно
     console.log("Username:", username);
     console.log("Email:", email);
@@ -142,6 +130,7 @@ function sendInfo(event) {
         .catch(error => {
             console.error("Ошибка при отправке данных:", error);
         });
+        return true;
 }
 
 
