@@ -2,18 +2,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
-const mongoose = require("mongoose"); // Импортируйте Mongoose
 const User = require("./db_stuff/User"); // Импортируйте модель данных
 
-const port = process.env.PORT || 5000;
-
-app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 
 
+const mongoose = require('mongoose');
 const { MongoClient, ServerApiVersion } = require('mongodb');
-
 const uri = "mongodb+srv://first_user:1111@cluster0.jtz9col.mongodb.net/?retryWrites=true&w=majority";
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -23,6 +17,7 @@ const client = new MongoClient(uri, {
         deprecationErrors: true,
     }
 });
+
 async function run() {
     try {
         // Connect the client to the server	(optional starting in v4.7)
@@ -37,12 +32,16 @@ async function run() {
 }
 run().catch(console.dir);
 
-
-// Подключение к MongoDB
 mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
+
+const port = process.env.PORT || 5000;
+
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 
 
@@ -61,14 +60,12 @@ app.post("/submit", async (req, res) => {
         await user.save();
 
         // Удаление всех пользователей в коллекции
-        /* 
         
-        
-        const collectionName = 'users'; // Здесь имя коллекции как строка
-        const collection = mongoose.connection.collection(collectionName);
-        await collection.deleteMany({});
+        // const collectionName = 'users'; // Здесь имя коллекции как строка
+        // const collection = mongoose.connection.collection(collectionName);
+        // await collection.deleteMany({});
          
-         */
+         
 
         console.log("User created:", user);
 
@@ -80,6 +77,38 @@ app.post("/submit", async (req, res) => {
 
         // Отправка ошибки в случае неудачи
         res.status(500).json({ error: "Failed to create user" });
+    }
+});
+
+app.post("/check", async (req, res) => {
+    const { username, password } = req.body;
+
+    try {
+        // Проверка существования пользователя по имени пользователя или email
+        const user = await User.findOne({ username: username });
+
+        if (user) {
+            var isPasswordMatch;
+            // Сравнение введенного пароля с хэшированным паролем из базы данных
+            if (user.password === password) {
+                isPasswordMatch = true;
+            }
+
+            if (isPasswordMatch) {
+                // Пароль совпадает, пользователь успешно аутентифицирован
+                res.json({ message: "Authentication successful", user });
+            } else {
+                // Пароль не совпадает, отправьте сообщение об ошибке
+                res.status(401).json({ message: "Authentication failed" });
+            }
+        } else {
+            // Пользователь с таким именем пользователя или email не существует
+            res.status(404).json({ message: "User not found" });
+        }
+    } catch (error) {
+        console.error('Ошибка при аутентификации:', error);
+        // Обработка ошибки
+        res.status(500).json({ error: "Authentication failed" });
     }
 });
 

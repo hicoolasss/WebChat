@@ -130,7 +130,7 @@ function sendInfo(event) {
         .catch(error => {
             console.error("Ошибка при отправке данных:", error);
         });
-        return true;
+    return true;
 }
 
 

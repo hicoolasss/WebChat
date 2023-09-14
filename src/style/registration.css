@@ -201,17 +201,6 @@ input:focus, input:hover {
 
 
 
-
-
-.create_acc_btn:focus, .create_acc_btn:hover {
-    outline: none;
-    /* border-color: rgba(234, 76, 137, 0.4); */
-    border-color: transparent;
-    background-color: var(--main-text-color);
-    box-shadow: none;
-}
-
-
 .password_box {
     display: flex;
     flex-direction: row;
@@ -248,6 +237,13 @@ input:focus, input:hover {
     transition: transform 0.35s;
 }
 
+.create_acc_btn:focus, .create_acc_btn:hover {
+    outline: none;
+    /* border-color: rgba(234, 76, 137, 0.4); */
+    border-color: transparent;
+    background-color: var(--main-text-color);
+    box-shadow: none;
+}
 .sign_in_btn {
     padding: 0;
 
@@ -313,6 +309,12 @@ input:focus, input:hover {
     transition: 0.5s;
     transform: translateY(-4px);
 
+}
+.Log_in_btn_in_log_in_page:hover {
+    background-color: #DFEAFF;
+    border: none;
+    outline: none;
+    box-shadow: none;
 }
 
 .dont_have_acc_box {
