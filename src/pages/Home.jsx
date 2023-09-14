@@ -6,6 +6,8 @@ import settings from 'react-useanimations/lib/settings';
 
 import avatar from "../resources/images/test_avatar.jpg"
 
+import search_icon from "react-useanimations/lib/searchToX"
+
 import '../style/home.css'
 
 const Home = () => {
@@ -45,7 +47,7 @@ const Home = () => {
 
 
                         </button>
-                            <p className="text_for_btn">All Chats</p>
+                        <p className="text_for_btn">All Chats</p>
                     </div>
 
                     <div className="box_for_btn">
@@ -155,6 +157,13 @@ const Home = () => {
                 </div>
             </nav>
             <div className="main_window">
+                <div className="scrollbar_window">
+
+                    <div className="searchbar_box">
+                        <input type="text" className="searchbar_input" placeholder="Search"></input>
+                    <UseAnimations className="searchbar_icon" animation={search_icon}  size={40} strokeColor="#DFEAFF" speed={1} />
+                    </div>
+                </div>
             </div>
         </div>
     );
