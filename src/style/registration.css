@@ -220,6 +220,8 @@ input:focus, input:hover {
     height: 3.25em;
     margin-top: 17px;
 
+    text-indent: 0px;
+
     background-color: var(--main-text-color);
     border-radius: 1em;
     color: #0A0A0A;
@@ -279,6 +281,8 @@ input:focus, input:hover {
     height: 3.25em;
     margin-top: 17px;
 
+    text-indent: 0px;
+
     background-color: var(--main-text-color);
     border-radius: 1em;
     color: #0A0A0A;
@@ -289,6 +293,7 @@ input:focus, input:hover {
     font-size: 0.9em;
 
     cursor: pointer;
+    text-align: center;
 
 
     outline: none;
@@ -296,6 +301,19 @@ input:focus, input:hover {
     cursor: pointer;
 
     transition: transform 0.35s;
+}
+
+.Log_in_btn_in_log_in_page:active {
+    background-color: #DFEAFF;
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+.Log_in_btn_in_log_in_page:focus {
+    background-color: #DFEAFF;
+    border: none;
+    outline: none;
+    box-shadow: none;
 }
 
 .create_acc_btn:active, .sign_in_btn:active, .Log_in_btn_in_log_in_page:active {
@@ -312,18 +330,6 @@ input:focus, input:hover {
 }
 
 .Log_in_btn_in_log_in_page:hover {
-    background-color: #DFEAFF;
-    border: none;
-    outline: none;
-    box-shadow: none;
-}
-
-.Log_in_btn_in_log_in_page:active {
-    background-color: #DFEAFF;
-    border: none;
-    outline: none;
-    box-shadow: none;
-}.Log_in_btn_in_log_in_page:focus {
     background-color: #DFEAFF;
     border: none;
     outline: none;
