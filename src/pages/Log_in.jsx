@@ -9,6 +9,25 @@ import visibility from "react-useanimations/lib/visibility";
 
 import registrationImage from "../resources/images/registration_image.jpg"
 
+import showErrorNotfication from "../utils/showErrorNotification";
+
+import deleteErrorNotification from "../utils/deleteErrorNotification";
+
+window.addEventListener('popstate', function (event) {
+    // Вызывается при нажатии на стрелки "назад" или "вперед" в браузере
+    console.log('Пользователь выполнил навигацию вперед или назад');
+    setTimeout(() => {
+        deleteErrorNotification();
+    }, 1000);
+    // Вы можете выполнить здесь нужные вам действия, например, обновить содержимое страницы
+});
+
+function deleteErrorNotificationWithTimeout() {
+    setTimeout(() => {
+      deleteErrorNotification();
+    }, 1000);
+  }
+  
 
 const LogIn = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -47,6 +66,7 @@ const LogIn = () => {
                 const user = await response.json();
 
                 if (user) {
+
                     console.log('Пользователь найден:', user);
 
                     setRedirectToHome(true); // Установка состояния перехода
@@ -67,23 +87,27 @@ const LogIn = () => {
 
                     setTimeout(() => {
                         const success_notification = document.getElementsByClassName("success_notification")[0];
-            
+
                         // Удаление класса анимации и добавление класса для второй анимации
                         success_notification.classList.remove("tinUpIn");
                         success_notification.classList.add("tinUpOut");
-            
+
                         // Через некоторое время удалите элемент
                         setTimeout(() => {
                             document.body.removeChild(success_notification);
-                        }, 10000);
+                        }, 1000);
                     }, 5000);
+                    deleteErrorNotification();
                 } else {
                     console.log('Пользователь не найден');
                     // Пользователь не найден, выполняйте нужные действия
                 }
-            } else {
-                console.error('Ошибка при запросе:', response.statusText);
-                // Обработка ошибки при запросе
+            }
+            else if (response.status === 404) {
+                showErrorNotfication("Incorrect username or email!", "username_error");
+            }
+            else if (response.status === 401) {
+                showErrorNotfication("Incorrect password!", "password_error");
             }
         } catch (error) {
             console.error('Ошибка при поиске пользователя:', error);
@@ -134,7 +158,7 @@ const LogIn = () => {
                             <input type="submit" value={"Log in"} className="Log_in_btn_in_log_in_page" onClick={navigateToHome}></input>
                             <div className="dont_have_acc_box">
                                 <p>Don`t have account?&nbsp; </p>
-                                <Link className="log_in_link" to="/registration">
+                                <Link className="log_in_link" to="/registration" onClick={deleteErrorNotificationWithTimeout}>
                                     Sign up
                                 </Link>
                             </div>

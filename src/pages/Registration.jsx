@@ -13,6 +13,15 @@ import sendInfo from "../utils/registration";
 
 import "../style/magic.css/dist/magic.css";
 
+import deleteErrorNotification from "../utils/deleteErrorNotification";
+
+function deleteErrorNotificationWithTimeout() {
+  setTimeout(() => {
+    deleteErrorNotification();
+  }, 1000);
+}
+
+
 
 const Registration = () => {
 
@@ -30,26 +39,28 @@ const Registration = () => {
   }, []);
 
   const navigateToHome = (event) => {
-
     if (sendInfo(event) === true) {
       setRedirectToHome(true);
       setTimeout(() => {
         const success_notification = document.getElementsByClassName("success_notification")[0];
+        if (success_notification) {
+          // Удаление класса анимации и добавление класса для второй анимации
+          success_notification.classList.remove("tinUpIn");
+          success_notification.classList.add("tinUpOut");
 
-        // Удаление класса анимации и добавление класса для второй анимации
-        success_notification.classList.remove("tinUpIn");
-        success_notification.classList.add("tinUpOut");
-
-        // Через некоторое время удалите элемент
-        setTimeout(() => {
-          document.body.removeChild(success_notification);
-        }, 10000);
-      }, 3000);
+          // Через некоторое время удалите элемент
+          setTimeout(() => {
+            if (document.body.contains(success_notification)) {
+              document.body.removeChild(success_notification);
+            }
+          }, 10000);
+        }
+      }, 5000);
     } else {
-      return
+      return;
     }
+  };
 
-  }
 
 
   return (
@@ -108,7 +119,7 @@ const Registration = () => {
                     <input value={"Create Account"} type="submit" className="create_acc_btn" onClick={navigateToHome}></input>
                   </Link>
                   <Link className="Link" to="/login">
-                    <button type="submit" className="sign_in_btn">
+                    <button type="submit" className="sign_in_btn" onClick={deleteErrorNotificationWithTimeout}>
                       Sign In
                     </button>
                   </Link>
