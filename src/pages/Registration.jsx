@@ -38,16 +38,21 @@ const Registration = () => {
     }, 2000); // Имитируем задержку загрузки в 2 секунды
   }, []);
 
-  const navigateToHome = (event) => {
-    if (sendInfo(event) === true) {
+  async function navigateToHome(event) {
+    
+    const result = await sendInfo(event);
+  
+    if (result === true) {
       setRedirectToHome(true);
+  
+      // Ожидаем 5 секунд, прежде чем удалять уведомление
       setTimeout(() => {
         const success_notification = document.getElementsByClassName("success_notification")[0];
         if (success_notification) {
           // Удаление класса анимации и добавление класса для второй анимации
           success_notification.classList.remove("tinUpIn");
           success_notification.classList.add("tinUpOut");
-
+  
           // Через некоторое время удалите элемент
           setTimeout(() => {
             if (document.body.contains(success_notification)) {
@@ -59,7 +64,9 @@ const Registration = () => {
     } else {
       return;
     }
-  };
+  }
+  
+
 
 
 

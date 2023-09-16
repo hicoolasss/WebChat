@@ -12,12 +12,6 @@ function sendInfo(event) {
     const email = formData.get("email");
     const password = formData.get("password");
 
-    const username_input = document.getElementById("username");
-    const email_input = document.getElementById("email");
-    const password_input = document.getElementById("password");
-
-    const body = document.querySelector("body");
-
     var hasNumber = /\d/;
 
 
@@ -61,30 +55,6 @@ function sendInfo(event) {
         showErrorNotfication("Password must be no more than 20 characters long!", "password_error");
         return false;
     }
-    else {
-        const array = ["username_error", "email_error", "password_error"];
-
-        for (let index = 0; index < array.length; index++) {
-            const error_check = document.querySelector(`.${array[index]}`);
-            if (error_check) {
-                document.body.removeChild(error_check);
-            }
-        }
-
-        const success_notification = document.createElement("div");
-        const success_message = document.createTextNode("Account created successfully!");
-
-        // Добавляем элемент на страницу
-        document.body.appendChild(success_notification);
-
-        // Добавляем класс "error" к элементу
-        success_notification.classList.add("success_notification");
-
-        // После того, как элемент добавлен на страницу, добавляем классы анимации
-        success_notification.classList.add('magictime', 'tinUpIn');
-
-        success_notification.appendChild(success_message);
-    }
 
     // Проверяем, что значения получены корректно
     console.log("Username:", username);
@@ -92,7 +62,7 @@ function sendInfo(event) {
     console.log("Password:", password);
 
     // Отправляем данные на сервер
-    fetch("http://localhost:5000/submit", {
+    return fetch("http://localhost:5000/submit", {
         method: "POST",
         body: JSON.stringify({ username, email, password }),
         headers: {
@@ -102,11 +72,45 @@ function sendInfo(event) {
         .then(response => response.json())
         .then(data => {
             console.log(`Response Data:`, data);
+            if (data.message === "Username already exists") {
+                // Имя пользователя уже существует
+                showErrorNotfication("Account with this username already exists!", "username_error");
+                return false;
+            } else if (data.message === "Email already exists") {
+                // Общая ошибка, которая не подпадает ни под одно из вышеуказанных условий
+                showErrorNotfication("Account with this mail already exists!", "email_error");
+                return false;
+            } else if (data.message === "User created successfully") {
+                const array = ["username_error", "email_error", "password_error"];
+
+                for (let index = 0; index < array.length; index++) {
+                    const error_check = document.querySelector(`.${array[index]}`);
+                    if (error_check) {
+                        document.body.removeChild(error_check);
+                    }
+                }
+
+                const success_notification = document.createElement("div");
+                const success_message = document.createTextNode("Account created successfully!");
+
+                // Добавляем элемент на страницу
+                document.body.appendChild(success_notification);
+
+                // Добавляем класс "error" к элементу
+                success_notification.classList.add("success_notification");
+
+                // После того, как элемент добавлен на страницу, добавляем классы анимации
+                success_notification.classList.add('magictime', 'tinUpIn');
+
+                success_notification.appendChild(success_message);
+
+                return true;
+            }
         })
         .catch(error => {
             console.error("Ошибка при отправке данных:", error);
+            return false;
         });
-    return true;
 }
 
 export default sendInfo;

@@ -57,28 +57,28 @@ app.post("/submit", async (req, res) => {
     try {
         // Создание нового пользователя в базе данных
         const user = new User(formData);
-        await user.save();
 
-        // Удаление всех пользователей в коллекции
-        
-        // const collectionName = 'users'; // Здесь имя коллекции как строка
-        // const collection = mongoose.connection.collection(collectionName);
-        // await collection.deleteMany({});
-         
-         
+        const username = await User.findOne({ username: formData.username });
+        const email = await User.findOne({ email: formData.email });
 
-        console.log("User created:", user);
-
-
-        // Отправка успешного ответа
-        res.json({ message: "User created successfully" });
+        if (username) {
+            res.status(400).json({ message: "Username already exists" });
+        }  
+        else if (email) {
+            res.status(400).json({ message: "Email already exists" });
+        } else {
+            await user.save();
+            console.log("User created:", user);
+            // Отправка успешного ответа
+            res.json({ message: "User created successfully" });
+        }
     } catch (error) {
         console.error("Error creating user:", error);
-
         // Отправка ошибки в случае неудачи
         res.status(500).json({ error: "Failed to create user" });
     }
 });
+
 
 app.post("/check", async (req, res) => {
     const { username, password } = req.body;
@@ -87,13 +87,13 @@ app.post("/check", async (req, res) => {
         // Проверка существования пользователя по имени пользователя или email
         const user = await User.findOne({ username: username });
         const user_w_email = await User.findOne({ email: username });
-        
+
         if (user || user_w_email) {
             var isPasswordMatch = false;
-            
+
             if (user && user.password === password) {
                 isPasswordMatch = true;
-            } 
+            }
             else if (user_w_email && user_w_email.password === password) {
                 isPasswordMatch = true;
             }
