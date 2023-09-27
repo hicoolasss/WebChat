@@ -315,7 +315,7 @@ input:focus, input:hover {
     box-shadow: none;
 }
 
-.create_acc_btn:active, .sign_in_btn:active, .Log_in_btn_in_log_in_page:active {
+.create_acc_btn:hover:active, .sign_in_btn:hover:active, .Log_in_btn_in_log_in_page:hover:active {
     transition: 0.5s;
     transform: scale(0.93);
 

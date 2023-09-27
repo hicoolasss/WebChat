@@ -62,7 +62,7 @@ function sendInfo(event) {
     console.log("Password:", password);
 
     // Отправляем данные на сервер
-    return fetch("http://localhost:5000/submit", {
+    return fetch("http://localhost:5000/registration", {
         method: "POST",
         body: JSON.stringify({ username, email, password }),
         headers: {

@@ -11,7 +11,7 @@ async function checkLoginData(event) {
 
     try {
         console.log(username, password);
-        const response = await fetch("http://localhost:5000/check", {
+        const response = await fetch("http://localhost:5000/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
