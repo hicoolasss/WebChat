@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 import '../style/registration.css'
 import "../style/magic.css/dist/magic.css";
@@ -14,12 +14,52 @@ import SplineAnimation from '../components/SplineAnimationRegistration';
 
 import { Context } from "../index";
 
+import showErrorNotfication from "../utils/showErrorNotification";
+
+
+
 function deleteErrorNotificationWithTimeout() {
   setTimeout(() => {
     deleteErrorNotification();
   }, 1000);
 }
 
+function validateForm(username, email, password) {
+  const hasNumber = /\d/;
+
+  const errors = {
+    username_error: [],
+    email_error: [],
+    password_error: []
+  };
+
+  if (username === "") errors.username_error.push("Please enter your username!");
+  if (username.length < 3) errors.username_error.push("Username must be at least 3 characters long!");
+  if (username.length > 20) errors.username_error.push("Username must be no more than 20 characters long!");
+  if (hasNumber.test(username)) errors.username_error.push("Username shouldn't contain numbers!");
+
+  if (email === "") errors.email_error.push("Please enter your email!");
+  if (email.length < 5) errors.email_error.push("Email must be at least 5 characters long!");
+  if (email.length > 30) errors.email_error.push("Email must be no more than 50 characters long!");
+
+  if (password === "") errors.password_error.push("Please enter your password!");
+  if (password.length < 3) errors.password_error.push("Password must be at least 3 characters long!");
+  if (password.length > 20) errors.password_error.push("Password must be no more than 20 characters long!");
+
+  for (let errorType in errors) {
+    if (errors[errorType].length) {
+      showErrorNotfication(errors[errorType].join(' '), errorType);
+      return false;
+    } else {
+      const error_check = document.querySelector(`.${errorType}`);
+      if (error_check) {
+        document.body.removeChild(error_check);
+      }
+    }
+  }
+
+  return true;
+}
 
 
 const Registration = () => {
@@ -38,42 +78,57 @@ const Registration = () => {
 
   const { store } = useContext(Context);
 
+  const navigate = useNavigate();
+
+  const handleCreateAccount = () => {
+    if (validateForm(username, email, password)) {
+      store.registration(username, email, password).then(() => {
+        console.log("isAuth is:" + store.isAuth);
+        if (store.isAuth) {
+          navigate("/home");
+          const success_notification = document.createElement("div");
+          const success_message = document.createTextNode("Log in successful!");
+  
+          // Добавляем элемент на страницу
+          document.body.appendChild(success_notification);
+  
+          // Добавляем класс "error" к элементу
+          success_notification.classList.add("success_notification");
+  
+          // После того, как элемент добавлен на страницу, добавляем классы анимации
+          success_notification.classList.add('magictime', 'tinUpIn');
+  
+          success_notification.appendChild(success_message);
+  
+          setTimeout(() => {
+              const success_notification = document.getElementsByClassName("success_notification")[0];
+  
+              // Удаление класса анимации и добавление класса для второй анимации
+              success_notification.classList.remove("tinUpIn");
+              success_notification.classList.add("tinUpOut");
+  
+              // Через некоторое время удалите элемент
+              setTimeout(() => {
+                  document.body.removeChild(success_notification);
+              }, 1000);
+          }, 5000);
+          deleteErrorNotification();
+          console.log("redirected to home and isAuth is:" + store.isAuth);
+      }
+      }).catch((error) => {
+        showErrorNotfication(error.response.data.error, "username_error");
+      })
+    }
+  }
+
+
+
   useEffect(() => {
     // Ваш код загрузки данных или ресурсов
     setTimeout(() => {
       setIsLoading(false);
     }, 2000); // Имитируем задержку загрузки в 2 секунды
   }, []);
-
-  // async function navigateToHome(event) {
-    
-  //   const result = await sendInfo(event);
-  
-  //   if (result === true) {
-  //     setRedirectToHome(true);
-  
-  //     // Ожидаем 5 секунд, прежде чем удалять уведомление
-  //     setTimeout(() => {
-  //       const success_notification = document.getElementsByClassName("success_notification")[0];
-  //       if (success_notification) {
-  //         // Удаление класса анимации и добавление класса для второй анимации
-  //         success_notification.classList.remove("tinUpIn");
-  //         success_notification.classList.add("tinUpOut");
-  
-  //         // Через некоторое время удалите элемент
-  //         setTimeout(() => {
-  //           if (document.body.contains(success_notification)) {
-  //             document.body.removeChild(success_notification);
-  //           }
-  //         }, 10000);
-  //       }
-  //     }, 5000);
-  //   } else {
-  //     return;
-  //   }
-  // }
-  
-
 
 
 
@@ -89,12 +144,12 @@ const Registration = () => {
           (
             <div id="secondary_background">
               <div id="image_box">
-              <SplineAnimation />
+                <SplineAnimation />
               </div>
               <div id="registration_container">
                 <p id="banner">Create an account</p>
                 <p id="desc">Sign up and start chatting!</p>
-                <form id="form" action="/submit" method="POST">
+                <div id="form">
                   <label htmlFor="name">Username</label>
                   <input
                     type="text"
@@ -131,16 +186,16 @@ const Registration = () => {
                     />
                     <div className="visibility"><UseAnimations animation={visibility} reverse={true} size={28} strokeColor="#DFEAFF" speed={3} onClick={() => setIsRevealPwd(prevState => !prevState)} /></div>
                   </div>
-                  
-                    <button className="create_acc_btn" onClick={() => store.registration(username,email, password)} >Create account</button>
-                  
+
+                  <button className="create_acc_btn" onClick={handleCreateAccount} >Create account</button>
+
                   <Link className="Link" to="/login">
                     <button type="submit" className="sign_in_btn" onClick={deleteErrorNotificationWithTimeout}>
                       Sign In
                     </button>
                   </Link>
 
-                </form>
+                </div>
               </div>
             </div>
           )}

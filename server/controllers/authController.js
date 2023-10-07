@@ -18,12 +18,12 @@ class UserController {
         } catch (error) {
             console.error("Error creating user:", error);
 
-            if (error.message === "Username already exists") {
-                return res.status(400).json({ error: "Username already exists" });
+            if (error.message === "Username already exists!") {
+                return res.status(500).json({ error: "Username already exists!" });
             }
 
-            if (error.message === "Email already exists") {
-                return res.status(400).json({ error: "Email already exists" });
+            if (error.message === "Email already exists!") {
+                return res.status(500).json({ error: "Email already exists!" });
             }
 
             // Обработка всех других ошибок
@@ -43,9 +43,18 @@ class UserController {
 
             return res.json(userData);
         } catch (error) {
-            console.error('Ошибка при аутентификации:', error);
-            // Обработка ошибки
-            res.status(500).json({ error: "Incorrect username or password" });
+            console.error("Error creating user:", error);
+
+            if (error.message === "User not found!") {
+                return res.status(500).json({ error: "User not found!" });
+            }
+
+            if (error.message === "Incorrect password!") {
+                return res.status(500).json({ error: "Incorrect password!" });
+            }
+
+            // Обработка всех других ошибок
+            return res.status(500).json({ error: error.message });
         }
     }
 

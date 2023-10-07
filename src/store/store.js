@@ -42,10 +42,20 @@ export default class Store {
             
             this.setAuth(true);
             this.setUser(response.data.user);
-        } catch (e) {
-            if (e.response?.data?.message === "Incorrect username or password") {
-                alert("Incorrect username or password");
+        } catch (error) {
+            if (error.response) {
+                // Сервер вернул ответ с кодом ошибки
+                console.error(error.response.data.error); // здесь будет ваше сообщение об ошибке, например, "Username already exists"
+        
+            } else if (error.request) {
+                // Запрос был сделан, но ответ не был получен
+                console.error("No response from server", error.request);
+            } else {
+                // Произошла какая-то другая ошибка при отправке запроса
+                console.error("Error", error.message);
             }
+
+            throw error;
         }
     }
 
@@ -56,8 +66,20 @@ export default class Store {
             localStorage.setItem('token', response.data.accessToken);
             this.setAuth(true);
             this.setUser(response.data.user);
-        } catch (e) {
-            console.log(e.response?.data?.message);
+        } catch (error) {
+            if (error.response) {
+                // Сервер вернул ответ с кодом ошибки
+                console.error(error.response.data.error); // здесь будет ваше сообщение об ошибке, например, "Username already exists"
+        
+            } else if (error.request) {
+                // Запрос был сделан, но ответ не был получен
+                console.error("No response from server", error.request);
+            } else {
+                // Произошла какая-то другая ошибка при отправке запроса
+                console.error("Error", error.message);
+            }
+
+            throw error;
         }
     }
 

@@ -9,11 +9,11 @@ class UserService {
         const check_email = await User.findOne({ email: email });
 
         if (check_username) {
-            throw new Error("Username already exists");
+            throw new Error("Username already exists!");
         }
 
         if (check_email) {
-            throw new Error("Email already exists");
+            throw new Error("Email already exists!");
         }
 
         const user = new User({
@@ -48,12 +48,12 @@ class UserService {
 
         if (!user) {
             // Пользователь с таким именем пользователя или email не существует
-            throw new Error("User not found");
+            throw new Error("User not found!");
         }
 
         if (user.password !== password) {
             // Пароль не совпадает, отправьте сообщение об ошибке
-            throw new Error("Incorrect password");
+            throw new Error("Incorrect password!");
         }
 
         const userDto = new UserDto(user);

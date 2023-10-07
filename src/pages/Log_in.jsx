@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import '../style/registration.css'
@@ -35,6 +35,75 @@ const LogIn = () => {
         setTimeout(() => {
             deleteErrorNotification();
         }, 1000);
+    }
+    function validateLogin(username, password) {
+        // Проверяем, что введено имя пользователя
+        if (!username) {
+            showErrorNotfication("Username is required!", "username_error");
+            return false;
+        }
+
+        // Проверяем минимальную длину имени пользователя
+        if (username.length < 3) {
+            showErrorNotfication("Username should be at least 3 characters long!", "username_error");
+            return false;
+        }
+
+        // Проверяем, что введен пароль
+        if (!password) {
+            showErrorNotfication("Password is required!", "password_error");
+            return false;
+        }
+
+        // Проверяем минимальную длину пароля
+        if (password.length < 4) {
+            showErrorNotfication("Password should be at least 4 characters long!", "password_error");
+            return false;
+        }
+
+        // Если все условия прошли успешно
+        return true;
+    }
+
+    const handleAuthentication = () => {
+        if (validateLogin(username, password)) {
+            store.login(username, password).then(() => {
+                if (store.isAuth) {
+                    navigate("/home");
+                    const success_notification = document.createElement("div");
+                    const success_message = document.createTextNode("Log in successful!");
+
+                    // Добавляем элемент на страницу
+                    document.body.appendChild(success_notification);
+
+                    // Добавляем класс "error" к элементу
+                    success_notification.classList.add("success_notification");
+
+                    // После того, как элемент добавлен на страницу, добавляем классы анимации
+                    success_notification.classList.add('magictime', 'tinUpIn');
+
+                    success_notification.appendChild(success_message);
+
+                    setTimeout(() => {
+                        const success_notification = document.getElementsByClassName("success_notification")[0];
+
+                        // Удаление класса анимации и добавление класса для второй анимации
+                        success_notification.classList.remove("tinUpIn");
+                        success_notification.classList.add("tinUpOut");
+
+                        // Через некоторое время удалите элемент
+                        setTimeout(() => {
+                            document.body.removeChild(success_notification);
+                        }, 1000);
+                    }, 5000);
+                    deleteErrorNotification();
+                    console.log("redirected to home and isAuth is:" + store.isAuth);
+                }
+            }).catch((error) => {
+                showErrorNotfication(error.response.data.error, "username_error");
+            })
+
+        }
     }
 
     useEffect(() => {
@@ -81,41 +150,7 @@ const LogIn = () => {
                                 />
                                 <div className="visibility"><UseAnimations animation={visibility} reverse={true} size={28} strokeColor="#DFEAFF" speed={3} onClick={() => setIsRevealPwd(prevState => !prevState)} /></div>
                             </div>
-                            <button className="Log_in_btn_in_log_in_page" onClick={() => store.login(username, password).then(() => {
-                                if (store.isAuth) {
-                                    navigate("/home");
-                                    const success_notification = document.createElement("div");
-                                    const success_message = document.createTextNode("Log in successful!");
-                            
-                                    // Добавляем элемент на страницу
-                                    document.body.appendChild(success_notification);
-                            
-                                    // Добавляем класс "error" к элементу
-                                    success_notification.classList.add("success_notification");
-                            
-                                    // После того, как элемент добавлен на страницу, добавляем классы анимации
-                                    success_notification.classList.add('magictime', 'tinUpIn');
-                            
-                                    success_notification.appendChild(success_message);
-                            
-                                    setTimeout(() => {
-                                        const success_notification = document.getElementsByClassName("success_notification")[0];
-                            
-                                        // Удаление класса анимации и добавление класса для второй анимации
-                                        success_notification.classList.remove("tinUpIn");
-                                        success_notification.classList.add("tinUpOut");
-                            
-                                        // Через некоторое время удалите элемент
-                                        setTimeout(() => {
-                                            document.body.removeChild(success_notification);
-                                        }, 1000);
-                                    }, 5000);
-                                    deleteErrorNotification();
-                                    console.log("redirected to home and isAuth is:" + store.isAuth);
-                                } else {
-                                    showErrorNotfication("Invalid username or password!", "username_error");
-                                }
-                            })}>Log in</button>
+                            <button className="Log_in_btn_in_log_in_page" onClick={handleAuthentication}>Log in</button>
                             <div className="dont_have_acc_box">
                                 <p>Don`t have account?&nbsp; </p>
                                 <Link className="log_in_link" to="/registration" onClick={deleteErrorNotificationWithTimeout}>

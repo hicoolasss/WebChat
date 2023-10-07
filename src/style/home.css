@@ -89,7 +89,7 @@ h1 {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    
+
     width: 100vw;
     height: 100vh;
     background: var(--main_bc);
@@ -271,14 +271,34 @@ h1 {
 
     height: 100vh;
 
+    
+}
+
+.main_nav_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    
+
+    width: 100%;
+
+    height: 100vh;
+
     row-gap: 50px;
 }
 
-#Log_out_box, #all_chats_box {
-    margin-top: 25px;
+
+
+
+#avatar_box {
+    margin-top: 50px;
 }
 
-
+#Log_out_box {
+    margin-bottom: 50px;
+}
 
 .avatar {
     border-radius: 50%;
@@ -296,7 +316,7 @@ h1 {
 
 @media (max-height: 893px) {
    
-    .wrapper {
+    .main_nav_wrapper {
        row-gap: 25px;
     }
 }
