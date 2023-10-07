@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { BrowserRouter, Route, Routes, Navigate, redirect } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './style/registration.css'
 import Registration from './pages/Registration';
 import LogIn from './pages/Log_in'
@@ -10,17 +10,12 @@ import { Context } from "./index";
 
 import { useNavigate } from "react-router-dom";
 
-
-import ProtectedRoute from "./pages/ProtectedRoute";
-
 function App() {
   const { store } = useContext(Context);
 
   const navigate = useNavigate();
 
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
 
 
@@ -30,7 +25,7 @@ function App() {
       try {
         await store.checkAuth(); // Запускаем проверку аутентификации
         setData(data);
-        setLoading(false);
+        
         console.log("data", store.isAuth);
 
         console.log("username", store.user.username);
@@ -38,8 +33,8 @@ function App() {
           navigate("/home");
         }
       } catch (error) {
-        setError(error);
-        setLoading(false);
+        
+        
       }
     }
 

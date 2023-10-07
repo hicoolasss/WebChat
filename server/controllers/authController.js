@@ -1,11 +1,10 @@
 // UserController.js
-const jwt = require("jsonwebtoken");
-const User = require("../db_stuff/User");
+
 
 const tokenService = require('../service/tokenService');
 const userService = require('../service/userSevice');
 
-const jwtSecret = "pidorpizda"; // Замените "your-secret-key" на ваш секретный ключ
+
 
 
 

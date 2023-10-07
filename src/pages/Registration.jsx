@@ -2,16 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
 
 import '../style/registration.css'
+import "../style/magic.css/dist/magic.css";
 
 import UseAnimations from "react-useanimations";
 import loading3 from "react-useanimations/lib/loading3";
 import visibility from "react-useanimations/lib/visibility";
-
-import registrationImage from "../resources/images/registration_image.jpg"
-
-import sendInfo from "../utils/registration";
-
-import "../style/magic.css/dist/magic.css";
 
 import deleteErrorNotification from "../utils/deleteErrorNotification";
 
@@ -40,33 +35,33 @@ const Registration = () => {
     }, 2000); // Имитируем задержку загрузки в 2 секунды
   }, []);
 
-  async function navigateToHome(event) {
+  // async function navigateToHome(event) {
     
-    const result = await sendInfo(event);
+  //   const result = await sendInfo(event);
   
-    if (result === true) {
-      setRedirectToHome(true);
+  //   if (result === true) {
+  //     setRedirectToHome(true);
   
-      // Ожидаем 5 секунд, прежде чем удалять уведомление
-      setTimeout(() => {
-        const success_notification = document.getElementsByClassName("success_notification")[0];
-        if (success_notification) {
-          // Удаление класса анимации и добавление класса для второй анимации
-          success_notification.classList.remove("tinUpIn");
-          success_notification.classList.add("tinUpOut");
+  //     // Ожидаем 5 секунд, прежде чем удалять уведомление
+  //     setTimeout(() => {
+  //       const success_notification = document.getElementsByClassName("success_notification")[0];
+  //       if (success_notification) {
+  //         // Удаление класса анимации и добавление класса для второй анимации
+  //         success_notification.classList.remove("tinUpIn");
+  //         success_notification.classList.add("tinUpOut");
   
-          // Через некоторое время удалите элемент
-          setTimeout(() => {
-            if (document.body.contains(success_notification)) {
-              document.body.removeChild(success_notification);
-            }
-          }, 10000);
-        }
-      }, 5000);
-    } else {
-      return;
-    }
-  }
+  //         // Через некоторое время удалите элемент
+  //         setTimeout(() => {
+  //           if (document.body.contains(success_notification)) {
+  //             document.body.removeChild(success_notification);
+  //           }
+  //         }, 10000);
+  //       }
+  //     }, 5000);
+  //   } else {
+  //     return;
+  //   }
+  // }
   
 
 
@@ -121,7 +116,7 @@ const Registration = () => {
                     <div className="visibility"><UseAnimations animation={visibility} reverse={true} size={28} strokeColor="#DFEAFF" speed={3} onClick={() => setIsRevealPwd(prevState => !prevState)} /></div>
                   </div>
                   <Link className="Link" to="/home">
-                    <input value={"Create Account"} type="submit" className="create_acc_btn" onClick={navigateToHome}></input>
+                    <input value={"Create Account"} type="submit" className="create_acc_btn" ></input>
                   </Link>
                   <Link className="Link" to="/login">
                     <button type="submit" className="sign_in_btn" onClick={deleteErrorNotificationWithTimeout}>

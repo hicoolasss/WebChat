@@ -1,13 +1,12 @@
-import React, { useState, useEffect , useContext} from "react";
+import React, {useContext} from "react";
+import '../style/home.css'
+
 import { Link } from "react-router-dom";
 import UseAnimations from 'react-useanimations';
-
-import settings from 'react-useanimations/lib/settings';
 
 import search_icon from "react-useanimations/lib/searchToX"
 
 import avatar from "../resources/images/test_avatar.jpg"
-import '../style/home.css'
 
 import { Context } from "../index";
 

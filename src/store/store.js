@@ -2,8 +2,7 @@ import { makeAutoObservable } from "mobx";
 import AuthService from "../services/AuthService";
 import axios from 'axios';
 import { API_URL } from "../http/index";
-import { useNavigate } from 'react-router-dom';
-import { runInAction } from "mobx";
+
 
 export default class Store {
     user = {};

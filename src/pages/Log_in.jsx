@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import '../style/registration.css'
@@ -8,21 +8,13 @@ import UseAnimations from "react-useanimations";
 import loading3 from "react-useanimations/lib/loading3";
 import visibility from "react-useanimations/lib/visibility";
 
-import registrationImage from "../resources/images/registration_image.jpg"
 
 import showErrorNotfication from "../utils/showErrorNotification";
-
 import deleteErrorNotification from "../utils/deleteErrorNotification";
+
 import SplineAnimation from '../components/SplineAnimationLogin';
 
 import { Context } from "../index";
-
-
-function deleteErrorNotificationWithTimeout() {
-    setTimeout(() => {
-        deleteErrorNotification();
-    }, 1000);
-}
 
 
 const LogIn = () => {
@@ -30,7 +22,6 @@ const LogIn = () => {
 
     const [isRevealPwd, setIsRevealPwd] = useState(false);
 
-    const [redirectToHome, setRedirectToHome] = useState(false);
 
     const [username, setUsername] = useState('')
 
