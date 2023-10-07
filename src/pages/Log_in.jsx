@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import '../style/registration.css'
 
@@ -12,22 +13,17 @@ import registrationImage from "../resources/images/registration_image.jpg"
 import showErrorNotfication from "../utils/showErrorNotification";
 
 import deleteErrorNotification from "../utils/deleteErrorNotification";
+import SplineAnimation from '../components/SplineAnimationLogin';
 
-window.addEventListener('popstate', function (event) {
-    // Вызывается при нажатии на стрелки "назад" или "вперед" в браузере
-    console.log('Пользователь выполнил навигацию вперед или назад');
-    setTimeout(() => {
-        deleteErrorNotification();
-    }, 1000);
-    // Вы можете выполнить здесь нужные вам действия, например, обновить содержимое страницы
-});
+import { Context } from "../index";
+
 
 function deleteErrorNotificationWithTimeout() {
     setTimeout(() => {
-      deleteErrorNotification();
+        deleteErrorNotification();
     }, 1000);
-  }
-  
+}
+
 
 const LogIn = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -36,6 +32,20 @@ const LogIn = () => {
 
     const [redirectToHome, setRedirectToHome] = useState(false);
 
+    const [username, setUsername] = useState('')
+
+    const [password, setPassword] = useState('')
+
+    const { store } = useContext(Context);
+
+    const navigate = useNavigate();
+
+    function deleteErrorNotificationWithTimeout() {
+        setTimeout(() => {
+            deleteErrorNotification();
+        }, 1000);
+    }
+
     useEffect(() => {
         // Ваш код загрузки данных или ресурсов
         setTimeout(() => {
@@ -43,105 +53,28 @@ const LogIn = () => {
         }, 2000); // Имитируем задержку загрузки в 2 секунды
     }, []);
 
-    const navigateToHome = async (event) => {
-        event.preventDefault();
-
-        const form = document.getElementById("log_in_form");
-        const formData = new FormData(form);
-
-        const username = formData.get("username");
-        const password = formData.get("password");
-
-        try {
-            console.log(username, password);
-            const response = await fetch("http://localhost:5000/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ username, password }),
-            });
-
-            if (response.ok) {
-                const user = await response.json();
-
-                if (user) {
-
-                    console.log('Пользователь найден:', user);
-
-                    setRedirectToHome(true); // Установка состояния перехода
-
-                    const success_notification = document.createElement("div");
-                    const success_message = document.createTextNode("Log in successful!");
-
-                    // Добавляем элемент на страницу
-                    document.body.appendChild(success_notification);
-
-                    // Добавляем класс "error" к элементу
-                    success_notification.classList.add("success_notification");
-
-                    // После того, как элемент добавлен на страницу, добавляем классы анимации
-                    success_notification.classList.add('magictime', 'tinUpIn');
-
-                    success_notification.appendChild(success_message);
-
-                    setTimeout(() => {
-                        const success_notification = document.getElementsByClassName("success_notification")[0];
-
-                        // Удаление класса анимации и добавление класса для второй анимации
-                        success_notification.classList.remove("tinUpIn");
-                        success_notification.classList.add("tinUpOut");
-
-                        // Через некоторое время удалите элемент
-                        setTimeout(() => {
-                            document.body.removeChild(success_notification);
-                        }, 1000);
-                    }, 5000);
-                    deleteErrorNotification();
-                } else {
-                    console.log('Пользователь не найден');
-                    // Пользователь не найден, выполняйте нужные действия
-                }
-            }
-            else if (response.status === 404) {
-                showErrorNotfication("Incorrect username or email!", "username_error");
-            }
-            else if (response.status === 401) {
-                showErrorNotfication("Incorrect password!", "password_error");
-            }
-        } catch (error) {
-            console.error('Ошибка при поиске пользователя:', error);
-            // Обработка ошибки
-        }
-
-    }
     return (
         <div>
             {isLoading ? (
                 <div><UseAnimations animation={loading3} size={150} strokeColor="#DFEAFF" /></div>
-            ) : redirectToHome ? (
-
-                <Navigate to="/home" />
             ) : (
                 <div className="log_in_back" id="secondary_background">
                     <div id="image_box">
-                        <img
-                            src={registrationImage}
-                            alt="registration_image"
-                            id="registration_image"
-                        />
+                        <SplineAnimation />
                     </div>
                     <div id="registration_container">
                         <p id="banner">Hello again!</p>
                         <p id="desc">Welcome back you`ve been missed!</p>
-                        <form id="log_in_form" action="/check" method="POST">
+                        <div id="log_in_form">
                             <label htmlFor="name">Username or email</label>
                             <input
                                 type="text"
                                 className="input-field"
                                 name="username"
+                                value={username}
                                 placeholder="Username or email"
                                 required=""
+                                onChange={e => setUsername(e.target.value)}
                             />
 
                             <label htmlFor="password">Password</label>
@@ -150,24 +83,83 @@ const LogIn = () => {
                                     type={isRevealPwd ? "text" : "password"}
                                     className="input-field"
                                     name="password"
+                                    value={password}
                                     placeholder="Password"
                                     required=""
+                                    onChange={e => setPassword(e.target.value)}
                                 />
                                 <div className="visibility"><UseAnimations animation={visibility} reverse={true} size={28} strokeColor="#DFEAFF" speed={3} onClick={() => setIsRevealPwd(prevState => !prevState)} /></div>
                             </div>
-                            <input type="submit" value={"Log in"} className="Log_in_btn_in_log_in_page" onClick={navigateToHome}></input>
+                            <button className="Log_in_btn_in_log_in_page" onClick={() => store.login(username, password).then(() => {
+                                if (store.isAuth) {
+                                    navigate("/home");
+                                    const success_notification = document.createElement("div");
+                                    const success_message = document.createTextNode("Log in successful!");
+                            
+                                    // Добавляем элемент на страницу
+                                    document.body.appendChild(success_notification);
+                            
+                                    // Добавляем класс "error" к элементу
+                                    success_notification.classList.add("success_notification");
+                            
+                                    // После того, как элемент добавлен на страницу, добавляем классы анимации
+                                    success_notification.classList.add('magictime', 'tinUpIn');
+                            
+                                    success_notification.appendChild(success_message);
+                            
+                                    setTimeout(() => {
+                                        const success_notification = document.getElementsByClassName("success_notification")[0];
+                            
+                                        // Удаление класса анимации и добавление класса для второй анимации
+                                        success_notification.classList.remove("tinUpIn");
+                                        success_notification.classList.add("tinUpOut");
+                            
+                                        // Через некоторое время удалите элемент
+                                        setTimeout(() => {
+                                            document.body.removeChild(success_notification);
+                                        }, 1000);
+                                    }, 5000);
+                                    deleteErrorNotification();
+                                    console.log("redirected to home and isAuth is:" + store.isAuth);
+                                } else {
+                                    showErrorNotfication("Invalid username or password!", "username_error");
+                                }
+                            })}>Log in</button>
                             <div className="dont_have_acc_box">
                                 <p>Don`t have account?&nbsp; </p>
                                 <Link className="log_in_link" to="/registration" onClick={deleteErrorNotificationWithTimeout}>
                                     Sign up
                                 </Link>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
-            )}
-        </div>
+            )
+            }
+        </div >
     );
+    // return (
+    //     <div>
+    //         <input
+    //             onChange={e => setUsername(e.target.value)}
+    //             value={username}
+    //             type="text"
+    //             placeholder='name'
+    //         />
+    //         <input
+    //             onChange={e => setPassword(e.target.value)}
+    //             value={password}
+    //             type="password"
+    //             placeholder='Пароль'
+    //         />
+    //         <button onClick={() => store.login(username, password)}>
+    //             Логин
+    //         </button>
+    //         <button onClick={() => store.registration(email, password)}>
+    //             Регистрация
+    //         </button>
+    //     </div>
+    // );
 };
 
 export default LogIn;

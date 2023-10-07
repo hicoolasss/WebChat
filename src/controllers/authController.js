@@ -2,89 +2,88 @@
 const jwt = require("jsonwebtoken");
 const User = require("../db_stuff/User");
 
+const tokenService = require('../service/tokenService');
+const userService = require('../service/userSevice');
+
 const jwtSecret = "pidorpizda"; // Замените "your-secret-key" на ваш секретный ключ
 
+
+
 class UserController {
-    // ...
+
+    static async home(req, res) {
+        res.send("Home page");
+    }
 
     static async createUser(req, res) {
-        // ...
         const formData = req.body;
         try {
-            // Создание нового пользователя в базе данных
-            const user = new User(formData);
+            const userData = await userService.registration(formData);
 
-            const username = await User.findOne({ username: formData.username });
-            const email = await User.findOne({ email: formData.email });
-
-            if (username) {
-                res.status(400).json({ message: "Username already exists" });
-            } else if (email) {
-                res.status(400).json({ message: "Email already exists" });
-            } else {
-                await user.save();
-
-                const userId = user._id;
-
-                // Генерируем JWT токен
-                const token = jwt.sign({
-                    id: userId,
-                    login: formData.username,
-                }, jwtSecret, { expiresIn: "7d" }); // Пример срока действия 7 дней
-
-                // Устанавливаем JWT токен в заголовок "Set-Cookie" в HTTP-ответе
-                res.setHeader('Set-Cookie', `token=${token}; HttpOnly; Max-Age=604800; Path=/; SameSite=Strict`);
-
-                // Отправляем успешный ответ
-                res.json({ message: 'User created successfully', userId });
-
-                console.log("User created:", user);
-            }
+            res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
+            return res.json(userData);
         } catch (error) {
-            console.error("Error creating user:", error);
-            // Отправка ошибки в случае неудачи
-            res.status(500).json({ error: "Failed to create user" });
+            console.error("Error creating user:", error); loginCookies
+
+            if (error.message === "Username already exists") {
+                return res.status(400).json({ error: "Username already exists" });
+            }
+
+            if (error.message === "Email already exists") {
+                return res.status(400).json({ error: "Email already exists" });
+            }
+
+            // Обработка всех других ошибок
+            return res.status(500).json({ error: error.message });
         }
     }
 
     static async authenticateUser(req, res) {
-        const formData = req.body;
+        const {username, password} = req.body;
         try {
-            // Проверка существования пользователя по имени пользователя или email
-            const username = await User.findOne({ username: formData.username });
-            const email = await User.findOne({ email: formData.email });
+            console.log("Username:", username);
+            console.log("Password:", password);
+            const userData = await userService.login(username, password);
+            console.log("UserData:", userData);
+            res.cookie('refreshToken', userData.tokens.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
+            console.log("Set-Cookie header:", res.get('Set-Cookie'));
 
-            if (username || email) {
-                var isPasswordMatch = false;
-
-                if (username && username.password === formData.password) {
-                    isPasswordMatch = true;
-                } else if (email && email.password === formData.password) {
-                    isPasswordMatch = true;
-                }
-
-                if (isPasswordMatch) {
-                    // Пароль совпадает, пользователь успешно аутентифицирован
-
-                    // Генерируем JWT токен для аутентифицированного пользователя
-                    const token = jwt.sign({ userId: username ? username._id : email._id }, jwtSecret, { expiresIn: "7d" });
-
-                    // Устанавливаем JWT токен в заголовок "Set-Cookie" в HTTP-ответе
-                    res.setHeader('Set-Cookie', `token=${token}; HttpOnly; Max-Age=604800; Path=/; SameSite=Strict`);
-
-                    res.json({ message: "Authentication successful", user: username || email });
-                } else {
-                    // Пароль не совпадает, отправьте сообщение об ошибке
-                    res.status(401).json({ message: "Incorrect password" });
-                }
-            } else {
-                // Пользователь с таким именем пользователя или email не существует
-                res.status(404).json({ message: "User not found" });
-            }
+            return res.json(userData);
         } catch (error) {
             console.error('Ошибка при аутентификации:', error);
             // Обработка ошибки
-            res.status(500).json({ error: "Authentication failed" });
+            res.status(500).json({ error: "Incorrect username or password" });
+        }
+    }
+
+    static async logout(req, res) {
+        try {
+            const { refreshToken } = req.cookies;
+            const token = await userService.logout(refreshToken);
+            res.clearCookie('refreshToken');
+            return res.json(token);
+        } catch (error) {
+            console.error('Ошибка при выходе:', error);
+        }
+    }
+
+    static async refresh(req, res) {
+        try {
+            const { refreshToken } = req.cookies;
+            const userData = await userService.refresh(refreshToken);
+            res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
+            return res.json(userData);
+        } catch (error) {
+            console.error('Ошибка при обновлении токена:', error);
+        }
+    }
+
+    static async getUsers(req, res) {
+        try {
+            const users = await userService.getAllUsers();
+            return res.json(users);
+        } catch (error) {
+            console.error('Ошибка при получении пользователей:', error);
         }
     }
 }

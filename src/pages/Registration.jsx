@@ -15,6 +15,8 @@ import "../style/magic.css/dist/magic.css";
 
 import deleteErrorNotification from "../utils/deleteErrorNotification";
 
+import SplineAnimation from '../components/SplineAnimationRegistration';
+
 function deleteErrorNotificationWithTimeout() {
   setTimeout(() => {
     deleteErrorNotification();
@@ -82,11 +84,7 @@ const Registration = () => {
           (
             <div id="secondary_background">
               <div id="image_box">
-                <img
-                  src={registrationImage}
-                  alt="registration_image"
-                  id="registration_image"
-                />
+              <SplineAnimation />
               </div>
               <div id="registration_container">
                 <p id="banner">Create an account</p>

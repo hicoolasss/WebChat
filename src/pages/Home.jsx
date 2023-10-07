@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect , useContext} from "react";
 import { Link } from "react-router-dom";
 import UseAnimations from 'react-useanimations';
 
@@ -9,8 +9,18 @@ import search_icon from "react-useanimations/lib/searchToX"
 import avatar from "../resources/images/test_avatar.jpg"
 import '../style/home.css'
 
+import { Context } from "../index";
+
+import { useNavigate } from "react-router-dom";
+
+
+
 
 const Home = () => {
+
+    const { store } = useContext(Context);
+
+    const navigate = useNavigate();
     return (
         <div className="container">
             <nav className="navbar">
@@ -137,7 +147,12 @@ const Home = () => {
 
 
                 <div className="box_for_btn" id="Log_out_box">
-                    <button>
+                    <button onClick={() => store.logout().then(() => {
+                                // if (store.isAuth) {
+                                    navigate("/login");
+                                    store.setAuth(false);
+                                // }
+                            })}>
                         <svg
                             width="40px"
                             height="40px"
@@ -166,6 +181,7 @@ const Home = () => {
                         <input type="text" className="searchbar_input" placeholder="Search"></input>
                         <UseAnimations className="searchbar_icon" animation={search_icon} size={40} strokeColor="#DFEAFF" speed={1} />
                     </div>
+                    
                 </div>
             </div>
         </div>

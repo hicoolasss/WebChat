@@ -1,5 +1,5 @@
 :root {
-    --main_bc: #0A0A0A;
+    --main_bc: #000;
     --sec_bc: #151616;
     --main-text-color: #DFEAFF;
     --placeholder-text-color: #6b798c;
@@ -45,6 +45,11 @@ body {
     width: 50%;
     height: 100%;
     border-radius: 120px 0px 0px 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* outline: 2px red dotted; */
 }
 
 #registration_image {

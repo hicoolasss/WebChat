@@ -72,15 +72,15 @@ function sendInfo(event) {
         .then(response => response.json())
         .then(data => {
             console.log(`Response Data:`, data);
-            if (data.message === "Username already exists") {
+            if (data.error === "Username already exists") {
                 // Имя пользователя уже существует
-                showErrorNotfication("Account with this username already exists!", "username_error");
+                showErrorNotfication("Username already exists!", "username_error");
                 return false;
-            } else if (data.message === "Email already exists") {
+            } else if (data.error === "Email already exists") {
                 // Общая ошибка, которая не подпадает ни под одно из вышеуказанных условий
-                showErrorNotfication("Account with this mail already exists!", "email_error");
+                showErrorNotfication("Email already exists!", "email_error");
                 return false;
-            } else if (data.message === "User created successfully") {
+            } else if (data.error === "User created successfully") {
                 const array = ["username_error", "email_error", "password_error"];
 
                 for (let index = 0; index < array.length; index++) {
