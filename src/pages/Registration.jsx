@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
 
 import '../style/registration.css'
@@ -11,6 +11,8 @@ import visibility from "react-useanimations/lib/visibility";
 import deleteErrorNotification from "../utils/deleteErrorNotification";
 
 import SplineAnimation from '../components/SplineAnimationRegistration';
+
+import { Context } from "../index";
 
 function deleteErrorNotificationWithTimeout() {
   setTimeout(() => {
@@ -27,6 +29,14 @@ const Registration = () => {
   const [isRevealPwd, setIsRevealPwd] = useState(false);
 
   const [redirectToHome, setRedirectToHome] = useState(false);
+
+  const [username, setUsername] = useState('')
+
+  const [email, setEmail] = useState('')
+
+  const [password, setPassword] = useState('')
+
+  const { store } = useContext(Context);
 
   useEffect(() => {
     // Ваш код загрузки данных или ресурсов
@@ -90,18 +100,22 @@ const Registration = () => {
                     type="text"
                     className="input-field"
                     name="username"
+                    value={username}
                     placeholder="Username"
                     required=""
                     id="username"
+                    onChange={e => setUsername(e.target.value)}
                   />
                   <label htmlFor="email">Email</label>
                   <input
                     type="email"
                     className="input-field"
                     name="email"
+                    value={email}
                     placeholder="Email"
                     required=""
                     id="email"
+                    onChange={e => setEmail(e.target.value)}
                   />
                   <label htmlFor="password">Password</label>
                   <div className="password_box">
@@ -109,15 +123,17 @@ const Registration = () => {
                       type={isRevealPwd ? "text" : "password"}
                       className="input-field"
                       name="password"
+                      value={password}
                       placeholder="Password"
                       required=""
                       id="password"
+                      onChange={e => setPassword(e.target.value)}
                     />
                     <div className="visibility"><UseAnimations animation={visibility} reverse={true} size={28} strokeColor="#DFEAFF" speed={3} onClick={() => setIsRevealPwd(prevState => !prevState)} /></div>
                   </div>
-                  <Link className="Link" to="/home">
-                    <input value={"Create Account"} type="submit" className="create_acc_btn" ></input>
-                  </Link>
+                  
+                    <button className="create_acc_btn" onClick={() => store.registration(username,email, password)} >Create account</button>
+                  
                   <Link className="Link" to="/login">
                     <button type="submit" className="sign_in_btn" onClick={deleteErrorNotificationWithTimeout}>
                       Sign In

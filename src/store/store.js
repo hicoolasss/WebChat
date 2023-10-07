@@ -3,11 +3,14 @@ import AuthService from "../services/AuthService";
 import axios from 'axios';
 import { API_URL } from "../http/index";
 
+import UserService from "../services/UserService";
+
 
 export default class Store {
     user = {};
     isAuth = false;
     isLoading = false;
+    users = [];
 
     constructor() {
         makeAutoObservable(this);
@@ -23,6 +26,10 @@ export default class Store {
 
     setLoading(bool) {
         this.isLoading = bool;
+    }
+    
+    setUsers(users) { 
+        this.users = users;
     }
     
 
@@ -42,9 +49,9 @@ export default class Store {
         }
     }
 
-    async registration(email, password) {
+    async registration(username, email,  password) {
         try {
-            const response = await AuthService.registration(email, password);
+            const response = await AuthService.registration(username, email,  password);
             console.log(response);
             localStorage.setItem('token', response.data.accessToken);
             this.setAuth(true);
@@ -80,6 +87,16 @@ export default class Store {
             console.log(e.response?.data?.message);
         } finally {
             this.setLoading(false);
+        }
+    }
+
+    async fetchUsers() {
+        try {
+            const response = await UserService.fetchUsers(); // Убедитесь, что у вас есть метод getUsers в UserService
+            console.log(response.data);
+            this.setUsers(response.data);
+        } catch (error) {
+            console.error('Ошибка при получении пользователей:', error);
         }
     }
 

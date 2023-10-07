@@ -4,9 +4,9 @@ const ApiError = require('../exceptions/apiError');
 
 const tokenService = require('../service/tokenService');
 class UserService {
-    async registration(formData) {
-        const check_username = await User.findOne({ username: formData.username });
-        const check_email = await User.findOne({ email: formData.email });
+    async registration(username, email, password) {
+        const check_username = await User.findOne({ username: username });
+        const check_email = await User.findOne({ email: email });
 
         if (check_username) {
             throw new Error("Username already exists");
@@ -16,7 +16,12 @@ class UserService {
             throw new Error("Email already exists");
         }
 
-        const user = new User(formData);
+        const user = new User({
+            username: username,
+            email: email,
+            password: password  // You should hash the password before saving it!
+        });
+        console.log('Пользователь перед сохранением:', user);
         await user.save();
 
         const userDto = new UserDto(user);
@@ -75,16 +80,23 @@ class UserService {
         }
         const userData = tokenService.validateRefreshToken(refreshToken);
         const tokenFromDb = await tokenService.findToken(refreshToken);
+
         if (!userData || !tokenFromDb) {
             throw ApiError.UnauthorizedError();
         }
         const user = await User.findById(userData.id);
+        if (!user) {
+            throw new Error("Пользователь не найден");
+        }
         const userDto = new UserDto(user);
         const tokens = tokenService.generateTokens({ ...userDto });
 
         await tokenService.saveToken(userDto.id, tokens.refreshToken);
         return { ...tokens, user: userDto }
+
+
     }
+
 
     async getAllUsers() {
         const users = await User.find();

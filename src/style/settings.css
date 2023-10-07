@@ -1,0 +1,14 @@
+.secondary_window {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    
+    background-color: #202329;
+    
+    width: calc(100vw - 450px);
+   
+
+    border-radius: 25px;
+}
+

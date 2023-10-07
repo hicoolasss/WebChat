@@ -1,12 +1,6 @@
 // UserController.js
-
-
 const tokenService = require('../service/tokenService');
 const userService = require('../service/userSevice');
-
-
-
-
 
 class UserController {
 
@@ -15,14 +9,14 @@ class UserController {
     }
 
     static async createUser(req, res) {
-        const formData = req.body;
+        const {username, email,  password} = req.body;
         try {
-            const userData = await userService.registration(formData);
+            const userData = await userService.registration(username, email,  password);
 
-            res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
+            res.cookie('refreshToken', userData.tokens.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
             return res.json(userData);
         } catch (error) {
-            console.error("Error creating user:", error); loginCookies
+            console.error("Error creating user:", error);
 
             if (error.message === "Username already exists") {
                 return res.status(400).json({ error: "Username already exists" });

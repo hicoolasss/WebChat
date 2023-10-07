@@ -129,28 +129,6 @@ const LogIn = () => {
             }
         </div >
     );
-    // return (
-    //     <div>
-    //         <input
-    //             onChange={e => setUsername(e.target.value)}
-    //             value={username}
-    //             type="text"
-    //             placeholder='name'
-    //         />
-    //         <input
-    //             onChange={e => setPassword(e.target.value)}
-    //             value={password}
-    //             type="password"
-    //             placeholder='Пароль'
-    //         />
-    //         <button onClick={() => store.login(username, password)}>
-    //             Логин
-    //         </button>
-    //         <button onClick={() => store.registration(email, password)}>
-    //             Регистрация
-    //         </button>
-    //     </div>
-    // );
 };
 
 export default LogIn;

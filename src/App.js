@@ -5,10 +5,15 @@ import Registration from './pages/Registration';
 import LogIn from './pages/Log_in'
 import Home from './pages/Home'
 import Friends from './pages/Friends'
+import Settings from './pages/Settings'
 
 import { Context } from "./index";
 
 import { useNavigate } from "react-router-dom";
+
+import ProtectedRoute from "./pages/ProtectedRoute";
+
+import HomeContainer from "./pages/HomeContainer";
 
 function App() {
   const { store } = useContext(Context);
@@ -17,29 +22,25 @@ function App() {
 
   const [data, setData] = useState(null);
 
-
+  const [hasNavigated, setHasNavigated] = useState(false);
 
   useEffect(() => {
-
     async function fetchData() {
       try {
-        await store.checkAuth(); // Запускаем проверку аутентификации
+        await store.checkAuth();
         setData(data);
-        
         console.log("data", store.isAuth);
-
         console.log("username", store.user.username);
-        if (store.isAuth) {
-          navigate("/home");
+        if (store.isAuth && !hasNavigated && window.location.pathname !== '/friends') {
+          setHasNavigated(true);
+          const redirectTo = window.location.state?.from || "/home";
+          navigate(redirectTo);
         }
       } catch (error) {
-        
-        
+        // Обработка ошибок
       }
     }
-
     fetchData();
-
   }, []);
 
 
@@ -51,8 +52,11 @@ function App() {
       <Route path="registration" element={<Registration />} />
 
 
-      <Route path="home" element={<Home />} />
-      <Route path="friends" element={<Friends />} />
+      <Route path="home" element={<ProtectedRoute component={HomeContainer} />}>
+        <Route index element={<Home />} />
+        <Route path="friends" element={<Friends />} />
+        <Route path="settings" element={<Settings />} />
+      </Route>
 
     </Routes>
 

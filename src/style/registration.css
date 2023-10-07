@@ -134,7 +134,7 @@ label {
 
 }
 
-input {
+#log_in_form input, #form input{
     align-self: center;
     width: 100%;
     max-width: 570px;
@@ -159,11 +159,11 @@ input {
     text-indent: 20px;
 }
 
-input::placeholder {
+#log_in_form input::placeholder, #form input::placeholder{
     color: var(--placeholder-text-color);
 }
 
-input:focus, input:hover {
+#log_in_form input:focus, #form input:focus, #log_in_form input:hover , #form input:hover{
     outline: none;
     /* border-color: rgba(234, 76, 137, 0.4); */
     border-color: rgba(239, 245, 255, 0.4);
@@ -306,20 +306,6 @@ input:focus, input:hover {
     transition: transform 0.35s;
 }
 
-.Log_in_btn_in_log_in_page:active {
-    background-color: #DFEAFF;
-    border: none;
-    outline: none;
-    box-shadow: none;
-}
-
-.Log_in_btn_in_log_in_page:focus {
-    background-color: #DFEAFF;
-    border: none;
-    outline: none;
-    box-shadow: none;
-}
-
 .create_acc_btn:hover:active, .sign_in_btn:hover:active, .Log_in_btn_in_log_in_page:hover:active {
     transition: 0.5s;
     transform: scale(0.93);
@@ -333,12 +319,6 @@ input:focus, input:hover {
 
 }
 
-.Log_in_btn_in_log_in_page:hover {
-    background-color: #DFEAFF;
-    border: none;
-    outline: none;
-    box-shadow: none;
-}
 
 
 .dont_have_acc_box {

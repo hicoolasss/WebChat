@@ -88,7 +88,8 @@ h1 {
 .container {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: flex-start;
+    
     width: 100vw;
     height: 100vh;
     background: var(--main_bc);
@@ -110,8 +111,9 @@ h1 {
     display: flex;
     flex-direction: column;
     width: 150px;
-    height: 100vh;
+    height: 100%;
 }
+
 .scrollbar_window {
     height: 100%;
     width: 500px;
@@ -121,7 +123,7 @@ h1 {
     align-items: center;
 
 
-    outline: red solid;
+    /* outline: red solid; */
 }
 
 .searchbar_box {
@@ -139,10 +141,48 @@ h1 {
 }
 
 .searchbar_input {
+    align-self: center;
+    width: 100%;
+    max-width: 570px;
+    height: 3.25em;
+
+    padding: 0;
+
+    background-color: #202329;
+    border-radius: 1em;
+    color: var(--main-text-color);
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 0.9em;
+
+
+    outline: none;
+    border: 2px solid transparent;
+    transition: .3s ease;
+
     text-indent: 60px;
     background-color: #536076;
 }
 
+.searchbar_input::placeholder {
+    color: var(--placeholder-text-color);
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.2em;
+}
+
+.searchbar_input:focus {
+    border: 2px solid #536076;
+    background-color: transparent;
+}
+
+.searchbar_input:hover {
+    border: 2px solid #536076;
+    background-color: transparent;
+}
 
 
 .searchbar_icon {
@@ -151,7 +191,7 @@ h1 {
 
 
 
-button {
+.box_for_btn button:not(.button_for_avatar), .button_for_avatar {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -160,22 +200,24 @@ button {
     border: none;
     margin: 0;
     cursor: pointer;
+    border-radius: 10px;
+    padding: 10px;
 
     transition: transform 0.35s;
 
     /* outline: 2px red dotted; */
 
 }
-button:hover {
+.box_for_btn button:hover:not(#settings_btn, .button_for_avatar), .button_for_avatar:hover {
     transform: scale(1.25);
     transition: transform 0.5s;
+    background-color: #767d9a;
     /* Увеличиваем время анимации при уходе курсора */
 }
 
 .button_for_avatar {
     align-self: center;
     border-radius: 50%;
-    margin-top: 50px;
     width: 75px;
     height: 75px;
     padding: 0;
@@ -197,9 +239,7 @@ button:hover {
 
 }
 
-#Log_out_box {
-    margin-top: 264px;
-}
+
 
 
 
@@ -216,16 +256,27 @@ button:hover {
     color: #FFFFFF;
 }
 
+#username {
+    margin-top: 10px;
+}
+
 .wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
+    
+    width: 100%;
+
+    height: 100vh;
+
     row-gap: 50px;
-    margin-top: 75px;
 }
 
-
+#Log_out_box, #all_chats_box {
+    margin-top: 25px;
+}
 
 
 
@@ -238,4 +289,14 @@ button:hover {
     outline: 2px solid #B1B9C8;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
     object-fit: cover;
+}
+
+
+
+
+@media (max-height: 893px) {
+   
+    .wrapper {
+       row-gap: 25px;
+    }
 }
